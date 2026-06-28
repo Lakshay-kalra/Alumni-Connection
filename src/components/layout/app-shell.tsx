@@ -17,6 +17,8 @@ import {
   Bell,
   Search,
   ChevronRight,
+  ShieldCheck,
+  UserCheck,
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { cn, formatDate } from "@/lib/utils";
@@ -26,7 +28,6 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
 import type { Notification as PrismaNotification } from "@prisma/client";
 
 const navItems = {
@@ -36,6 +37,7 @@ const navItems = {
     { href: "/announcements", label: "Announcements", icon: Megaphone },
     { href: "/chat", label: "Messages", icon: MessageSquare },
     { href: "/student/profile", label: "My Profile", icon: Users },
+    { href: "/student/verification", label: "Verification", icon: ShieldCheck },
     { href: "/settings", label: "Settings", icon: Settings },
   ],
   ALUMNI: [
@@ -45,10 +47,13 @@ const navItems = {
     { href: "/community", label: "Community", icon: Users },
     { href: "/chat", label: "Messages", icon: MessageSquare },
     { href: "/alumni/profile", label: "My Profile", icon: GraduationCap },
+    { href: "/alumni/verification", label: "Verification", icon: ShieldCheck },
     { href: "/settings", label: "Settings", icon: Settings },
   ],
   ADMIN: [
     { href: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
+    { href: "/admin/verification/students", label: "Student Verification", icon: UserCheck },
+    { href: "/admin/verification/alumni", label: "Alumni Verification", icon: GraduationCap },
     { href: "/alumni-directory", label: "Alumni", icon: Users },
     { href: "/events", label: "Events", icon: Calendar },
     { href: "/announcements", label: "Announcements", icon: Megaphone },

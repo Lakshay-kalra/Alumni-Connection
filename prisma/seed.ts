@@ -74,6 +74,7 @@ async function main() {
             batch: s.batch,
             careerGoals: s.careerGoals,
             interests: s.interests,
+            verificationStatus: "APPROVED",
           },
         },
       },

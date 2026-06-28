@@ -2,8 +2,8 @@ import { requireRole } from "@/lib/auth-utils";
 import { db } from "@/lib/db";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { AdminCharts } from "@/components/admin/admin-charts";
-import { VerifyAlumniActions } from "@/components/admin/verify-alumni-actions";
 import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
 import {
   Users,
   GraduationCap,
@@ -13,8 +13,9 @@ import {
   TrendingUp,
   Clock,
   CheckCircle,
+  ArrowRight,
+  ShieldCheck,
 } from "lucide-react";
-import { formatDateOnly } from "@/lib/utils";
 
 export default async function AdminDashboard() {
   await requireRole("ADMIN");
@@ -26,7 +27,7 @@ export default async function AdminDashboard() {
     upcomingEvents,
     registrations,
     pendingAlumni,
-    pendingList,
+    pendingStudents,
     recentUsers,
   ] = await Promise.all([
     db.alumniProfile.count({ where: { verificationStatus: "APPROVED" } }),
@@ -35,12 +36,7 @@ export default async function AdminDashboard() {
     db.event.count({ where: { date: { gte: new Date() } } }),
     db.eventRegistration.count(),
     db.alumniProfile.count({ where: { verificationStatus: "PENDING" } }),
-    db.alumniProfile.findMany({
-      where: { verificationStatus: "PENDING" },
-      include: { user: true },
-      take: 10,
-      orderBy: { createdAt: "desc" },
-    }),
+    db.studentProfile.count({ where: { verificationStatus: "PENDING" } }),
     db.user.findMany({
       orderBy: { createdAt: "desc" },
       take: 10,
@@ -52,13 +48,15 @@ export default async function AdminDashboard() {
   const mentorshipStats = await db.mentorshipRequest.groupBy({ by: ["status"], _count: true });
   const eventParticipation = await db.eventRegistration.groupBy({ by: ["eventId"], _count: true });
 
+  const totalPending = pendingAlumni + pendingStudents;
+
   const stats = [
     { label: "Verified Alumni", value: totalAlumni, icon: GraduationCap, color: "text-blue-600 dark:text-blue-400", bg: "bg-blue-500/10" },
     { label: "Total Students", value: totalStudents, icon: Users, color: "text-violet-600 dark:text-violet-400", bg: "bg-violet-500/10" },
     { label: "Active Mentorships", value: activeMentorships, icon: MessageSquare, color: "text-emerald-600 dark:text-emerald-400", bg: "bg-emerald-500/10" },
     { label: "Upcoming Events", value: upcomingEvents, icon: Calendar, color: "text-amber-600 dark:text-amber-400", bg: "bg-amber-500/10" },
     { label: "Event Registrations", value: registrations, icon: UserCheck, color: "text-rose-600 dark:text-rose-400", bg: "bg-rose-500/10" },
-    { label: "Pending Verification", value: pendingAlumni, icon: Clock, color: "text-orange-600 dark:text-orange-400", bg: "bg-orange-500/10" },
+    { label: "Pending Verifications", value: totalPending, icon: Clock, color: "text-orange-600 dark:text-orange-400", bg: "bg-orange-500/10" },
   ];
 
   return (
@@ -69,9 +67,9 @@ export default async function AdminDashboard() {
           <h1 className="text-3xl font-bold" style={{ fontFamily: 'Outfit, sans-serif' }}>Admin Dashboard</h1>
           <p className="text-muted-foreground mt-1">Platform overview and management tools</p>
         </div>
-        {pendingAlumni > 0 && (
+        {totalPending > 0 && (
           <Badge variant="warning" className="text-sm px-3 py-1.5">
-            {pendingAlumni} pending verification{pendingAlumni > 1 ? "s" : ""}
+            {totalPending} pending verification{totalPending > 1 ? "s" : ""}
           </Badge>
         )}
       </div>
@@ -100,33 +98,43 @@ export default async function AdminDashboard() {
 
       {/* Bottom tables */}
       <div className="grid gap-6 lg:grid-cols-2">
-        {/* Pending Verifications */}
+        {/* Verification Overview */}
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Clock className="h-5 w-5 text-orange-500" />
-              Pending Alumni Verification
+              <ShieldCheck className="h-5 w-5 text-primary" />
+              Verification Action Center
             </CardTitle>
-            <CardDescription>Review and approve alumni accounts</CardDescription>
+            <CardDescription>Manage student ID and alumni LinkedIn verification queues</CardDescription>
           </CardHeader>
-          <CardContent className="space-y-3">
-            {pendingList.length === 0 ? (
-              <div className="flex flex-col items-center justify-center py-8 text-center">
-                <CheckCircle className="h-10 w-10 text-emerald-500 mb-3" />
-                <p className="font-medium">All caught up!</p>
-                <p className="text-sm text-muted-foreground">No alumni pending verification</p>
+          <CardContent className="space-y-4">
+            <div className="rounded-xl border bg-muted/20 p-4 flex items-center justify-between">
+              <div>
+                <p className="font-semibold text-sm">Student Verification Queue</p>
+                <p className="text-xs text-muted-foreground mt-0.5">
+                  {pendingStudents} student{pendingStudents === 1 ? "" : "s"} waiting for ID approval
+                </p>
               </div>
-            ) : (
-              pendingList.map((a) => (
-                <div key={a.id} className="flex items-center justify-between rounded-xl border bg-muted/30 px-4 py-3 gap-4">
-                  <div className="min-w-0">
-                    <p className="font-semibold text-sm truncate">{a.name}</p>
-                    <p className="text-xs text-muted-foreground truncate">{a.user.email} · {a.department} · Batch {a.batch}</p>
-                  </div>
-                  <VerifyAlumniActions alumniId={a.id} />
-                </div>
-              ))
-            )}
+              <Link href="/admin/verification/students">
+                <Badge variant={pendingStudents > 0 ? "warning" : "secondary"} className="hover:opacity-80 flex items-center gap-1 cursor-pointer">
+                  Go to Queue <ArrowRight className="h-3 w-3" />
+                </Badge>
+              </Link>
+            </div>
+
+            <div className="rounded-xl border bg-muted/20 p-4 flex items-center justify-between">
+              <div>
+                <p className="font-semibold text-sm">Alumni Verification Queue</p>
+                <p className="text-xs text-muted-foreground mt-0.5">
+                  {pendingAlumni} alumni waiting for LinkedIn approval
+                </p>
+              </div>
+              <Link href="/admin/verification/alumni">
+                <Badge variant={pendingAlumni > 0 ? "warning" : "secondary"} className="hover:opacity-80 flex items-center gap-1 cursor-pointer">
+                  Go to Queue <ArrowRight className="h-3 w-3" />
+                </Badge>
+              </Link>
+            </div>
           </CardContent>
         </Card>
 
