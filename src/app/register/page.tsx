@@ -55,8 +55,8 @@ export default function RegisterPage() {
     <div className="flex min-h-screen items-center justify-center p-4">
       <Card className="w-full max-w-lg">
         <CardHeader className="text-center">
-          <div className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-            <GraduationCap className="h-6 w-6 text-primary" />
+          <div className="mx-auto mb-2 flex items-center justify-center">
+            <img src="/logo.jpeg" alt="Logo" className="h-12 w-auto rounded-xl border shadow-sm" />
           </div>
           <CardTitle>Create Account</CardTitle>
           <CardDescription>Join the Alumni Network community</CardDescription>

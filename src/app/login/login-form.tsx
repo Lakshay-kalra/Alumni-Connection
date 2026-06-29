@@ -57,11 +57,11 @@ export default function LoginPage() {
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary shadow-lg shadow-primary/30">
-            <GraduationCap className="h-8 w-8 text-primary-foreground" />
+          <div className="mx-auto mb-4 flex items-center justify-center">
+            <img src="/logo.jpeg" alt="Logo" className="h-16 w-auto rounded-2xl shadow-lg border" />
           </div>
           <h1 className="text-2xl font-bold" style={{ fontFamily: 'Outfit, sans-serif' }}>Welcome back</h1>
-          <p className="text-muted-foreground mt-1 text-sm">Sign in to your AlumniNet account</p>
+          <p className="text-muted-foreground mt-1 text-sm">Sign in to your Alumni Network account</p>
         </div>
 
         {/* Card */}
@@ -144,8 +144,8 @@ export default function LoginPage() {
           <p className="font-semibold text-foreground mb-2">🔑 Demo credentials:</p>
           <div className="grid gap-1.5">
             <p className="text-muted-foreground"><span className="font-medium text-foreground">Admin:</span> admin@alumninetwork.com / Admin@123</p>
-            <p className="text-muted-foreground"><span className="font-medium text-foreground">Alumni:</span> alumni1@company.com / Alumni@123</p>
-            <p className="text-muted-foreground"><span className="font-medium text-foreground">Student:</span> student1@college.edu / Student@123</p>
+            <p className="text-muted-foreground"><span className="font-medium text-foreground">Alumni:</span> vikram.singh@google.com / Alumni@123</p>
+            <p className="text-muted-foreground"><span className="font-medium text-foreground">Student:</span> arjun.sharma@chitkara.edu.in / Student@123</p>
           </div>
         </div>
       </div>

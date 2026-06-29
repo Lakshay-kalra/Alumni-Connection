@@ -41,7 +41,7 @@ export async function listAlumni(req: Request, res: Response) {
 }
 
 export async function getAlumniDetails(req: Request, res: Response) {
-  const { id } = req.params;
+  const id = req.params.id as string;
   try {
     const alumni = await prisma.alumniProfile.findUnique({
       where: { id },
@@ -58,7 +58,7 @@ export async function getAlumniDetails(req: Request, res: Response) {
           where: { isActive: true },
         },
       },
-    });
+    }) as any;
 
     if (!alumni) {
       return res.status(404).json({ error: "Alumni profile not found" });

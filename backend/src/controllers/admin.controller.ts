@@ -96,7 +96,7 @@ export async function deleteUser(req: AuthenticatedRequest, res: Response) {
     return res.status(403).json({ error: "Access denied" });
   }
 
-  const { userId } = req.params;
+  const userId = req.params.userId as string;
 
   try {
     const user = await prisma.user.findUnique({ where: { id: userId } });

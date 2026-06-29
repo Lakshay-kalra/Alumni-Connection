@@ -77,7 +77,7 @@ export async function updateEvent(req: AuthenticatedRequest, res: Response) {
     return res.status(403).json({ error: "Unauthorized" });
   }
 
-  const { id } = req.params;
+  const id = req.params.id as string;
   const parsed = eventSchema.safeParse(req.body);
   if (!parsed.success) {
     return res.status(400).json({ error: parsed.error.errors[0]?.message || "Invalid input" });
@@ -109,7 +109,7 @@ export async function deleteEvent(req: AuthenticatedRequest, res: Response) {
     return res.status(403).json({ error: "Unauthorized" });
   }
 
-  const { id } = req.params;
+  const id = req.params.id as string;
   try {
     await prisma.event.delete({ where: { id } });
     return res.json({ success: true, message: "Event deleted successfully" });

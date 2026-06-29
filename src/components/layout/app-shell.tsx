@@ -146,11 +146,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           </Button>
 
           <Link href={items[0]?.href || "/"} className="flex items-center gap-2.5 font-bold text-primary">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-              <GraduationCap className="h-4 w-4 text-primary-foreground" />
-            </div>
+            <img src="/logo.jpeg" alt="Alumni Network Logo" className="h-8 w-auto rounded-md border" />
             <span className="hidden sm:inline font-bold text-lg tracking-tight" style={{ fontFamily: 'Outfit, sans-serif' }}>
-              AlumniNet
+              Alumni Network
             </span>
           </Link>
 

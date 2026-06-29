@@ -24,13 +24,13 @@ if (-not (Test-Path "$projectRoot\backend\node_modules")) {
 
 # 2. Check and install frontend dependencies
 Write-Host "[2/3] Checking Frontend App..." -ForegroundColor Yellow
-if (-not (Test-Path "$projectRoot\frontend\.env.local")) {
-    Write-Host "Error: frontend/.env.local file not found. Set it up before running." -ForegroundColor Red
+if (-not (Test-Path "$projectRoot\.env")) {
+    Write-Host "Error: .env file not found. Set it up before running." -ForegroundColor Red
     exit 1
 }
-if (-not (Test-Path "$projectRoot\frontend\node_modules")) {
+if (-not (Test-Path "$projectRoot\node_modules")) {
     Write-Host "Installing frontend dependencies..." -ForegroundColor Cyan
-    Set-Location "$projectRoot\frontend"
+    Set-Location "$projectRoot"
     npm install
     Set-Location $projectRoot
 }
@@ -54,7 +54,7 @@ Start-Process -FilePath "npm.cmd" -ArgumentList @("run", "dev") -WorkingDirector
 
 # Start frontend server (Next.js on http://localhost:3000)
 Write-Host "🚀 Starting Next.js frontend on http://localhost:3000" -ForegroundColor Green
-Start-Process -FilePath "npm.cmd" -ArgumentList @("run", "dev") -WorkingDirectory "$projectRoot\frontend"
+Start-Process -FilePath "npm.cmd" -ArgumentList @("run", "dev") -WorkingDirectory "$projectRoot"
 
 Write-Host "`n=============================================" -ForegroundColor Green
 Write-Host "  Success: Application servers started!       " -ForegroundColor Green

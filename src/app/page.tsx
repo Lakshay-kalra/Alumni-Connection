@@ -10,11 +10,9 @@ export default function HomePage() {
       <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur-xl">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 lg:px-8">
           <div className="flex items-center gap-2.5">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary">
-              <GraduationCap className="h-5 w-5 text-primary-foreground" />
-            </div>
+            <img src="/logo.jpeg" alt="Alumni Network Logo" className="h-9 w-auto rounded-md border" />
             <span className="font-bold text-xl tracking-tight" style={{ fontFamily: 'Outfit, sans-serif' }}>
-              AlumniNet
+              Alumni Network
             </span>
           </div>
           <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-muted-foreground">
@@ -213,9 +211,9 @@ export default function HomePage() {
       <footer className="border-t py-10">
         <div className="container mx-auto px-4 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2 font-bold text-primary">
-            <GraduationCap className="h-5 w-5" /> AlumniNet
+            <img src="/logo.jpeg" alt="Alumni Network Logo" className="h-6 w-auto rounded border" /> Alumni Network
           </div>
-          <p className="text-sm text-muted-foreground">© 2026 AlumniNet. Built for students and alumni.</p>
+          <p className="text-sm text-muted-foreground">© 2026 Alumni Network. Built for students and alumni.</p>
           <div className="flex gap-6 text-sm text-muted-foreground">
             <Link href="/login" className="hover:text-foreground transition-colors">Login</Link>
             <Link href="/register" className="hover:text-foreground transition-colors">Register</Link>

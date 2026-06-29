@@ -6,7 +6,7 @@ import { sanitizeInput } from "../utils/sanitize";
 import { triggerSocketEvent } from "../sockets/socket";
 
 export async function getChatMessages(req: AuthenticatedRequest, res: Response) {
-  const { conversationId } = req.params;
+  const conversationId = req.params.conversationId as string;
   if (!req.user) {
     return res.status(401).json({ error: "Unauthorized" });
   }
@@ -23,7 +23,7 @@ export async function getChatMessages(req: AuthenticatedRequest, res: Response) 
           },
         },
       },
-    });
+    }) as any;
 
     if (!conversation) {
       return res.status(404).json({ error: "Conversation not found" });
@@ -107,10 +107,7 @@ export async function sendMessage(req: AuthenticatedRequest, res: Response) {
     });
 
     // Trigger Socket event for recipient
-    triggerSocketEvent(recipientId, "new_message", {
-      conversationId,
-      message,
-    });
+    triggerSocketEvent(recipientId, "new-message", message);
 
     // Add Notification
     const userWithProfile = await prisma.user.findUnique({

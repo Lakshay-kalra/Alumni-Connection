@@ -35,6 +35,7 @@ export function SocketProvider({ children }: { children: React.ReactNode }) {
     console.log(`🔌 Initializing socket connection to: ${socketUrl}`);
 
     const socketInstance = io(socketUrl, {
+      auth: { token: session.accessToken },
       withCredentials: true,
       transports: ["websocket", "polling"],
       reconnectionAttempts: 5,
