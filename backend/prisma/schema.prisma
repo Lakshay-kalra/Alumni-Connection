@@ -1,0 +1,391 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  ALUMNI
+  STUDENT
+}
+
+enum VerificationStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum MentorshipRequestStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+enum AnnouncementCategory {
+  NEWS
+  ACHIEVEMENT
+  PLACEMENT_REPORT
+  DEPARTMENT_UPDATE
+  CAMPUS_UPDATE
+}
+
+enum NotificationType {
+  MENTORSHIP_REQUEST
+  MENTORSHIP_ACCEPTED
+  MENTORSHIP_REJECTED
+  NEW_MESSAGE
+  EVENT_REMINDER
+  NEW_ANNOUNCEMENT
+  ALUMNI_REGISTERED
+  EVENT_REGISTRATION
+  PLATFORM_ACTIVITY
+  ALUMNI_VERIFICATION
+}
+
+enum BroadcastMode {
+  ANNOUNCEMENT
+  COMMUNITY
+}
+
+enum MessageType {
+  TEXT
+  FILE
+  RESUME
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  passwordHash  String
+  role          Role
+  emailVerified DateTime?
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  studentProfile StudentProfile?
+  alumniProfile  AlumniProfile?
+  accounts       Account[]
+  sessions       Session[]
+
+  sentMessages         Message[]          @relation("SentMessages")
+  notifications        Notification[]
+  communityMessages    CommunityMessage[]
+  adminBroadcasts      AdminBroadcast[]
+  eventRegistrations   EventRegistration[]
+  announcements        Announcement[]
+  events               Event[]
+  presence             UserPresence?
+
+  @@index([email])
+  @@index([role])
+}
+
+model UserPresence {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  isOnline  Boolean  @default(false)
+  lastSeen  DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  email     String
+  token     String   @unique
+  expires   DateTime
+  createdAt DateTime @default(now())
+
+  @@index([email])
+}
+
+model EmailVerificationToken {
+  id        String   @id @default(cuid())
+  email     String
+  token     String   @unique
+  expires   DateTime
+  createdAt DateTime @default(now())
+
+  @@index([email])
+}
+
+model StudentProfile {
+  id                 String             @id @default(cuid())
+  userId             String             @unique
+  name               String
+  enrollmentNumber   String?
+  photo              String?
+  department         String
+  batch              String?
+  careerGoals        String[]           @default([])
+  interests          String[]           @default([])
+  bio                String?
+  verificationStatus VerificationStatus @default(PENDING)
+  studentIdCard      String?
+  verifiedAt         DateTime?
+  verifiedBy         String?
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
+
+  user               User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  mentorshipRequests MentorshipRequest[]
+  mentorships        Mentorship[]
+
+  @@index([department])
+  @@index([name])
+}
+
+model AlumniProfile {
+  id               String             @id @default(cuid())
+  userId           String             @unique
+  name             String
+  photo            String?
+  batch            String
+  department       String
+  company          String?
+  position         String?
+  yearsExperience  Int?
+  industry         String?
+  location         String?
+  skills           String[]           @default([])
+  expertise        String[]           @default([])
+  interests        String[]           @default([])
+  linkedin         String?
+  portfolio        String?
+  mentorshipAvailable Boolean         @default(true)
+  verificationStatus VerificationStatus @default(PENDING)
+  verifiedAt       DateTime?
+  verifiedBy       String?
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+
+  user               User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  mentorshipRequests MentorshipRequest[]
+  mentorships        Mentorship[]
+
+  @@index([department])
+  @@index([batch])
+  @@index([company])
+  @@index([verificationStatus])
+  @@index([name])
+}
+
+model MentorshipRequest {
+  id          String                  @id @default(cuid())
+  studentId   String
+  alumniId    String
+  motivation  String                  @db.Text
+  careerGoal  String                  @db.Text
+  expectations String                 @db.Text
+  status      MentorshipRequestStatus @default(PENDING)
+  createdAt   DateTime                @default(now())
+  updatedAt   DateTime                @updatedAt
+
+  student StudentProfile @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  alumni  AlumniProfile  @relation(fields: [alumniId], references: [id], onDelete: Cascade)
+
+  @@unique([studentId, alumniId])
+  @@index([status])
+  @@index([alumniId])
+  @@index([studentId])
+}
+
+model Mentorship {
+  id        String   @id @default(cuid())
+  studentId String
+  alumniId  String
+  startedAt DateTime @default(now())
+  endedAt   DateTime?
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  student      StudentProfile @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  alumni       AlumniProfile  @relation(fields: [alumniId], references: [id], onDelete: Cascade)
+  conversation Conversation?
+
+  @@unique([studentId, alumniId])
+  @@index([alumniId])
+  @@index([studentId])
+  @@index([isActive])
+}
+
+model Conversation {
+  id           String   @id @default(cuid())
+  mentorshipId String   @unique
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  mentorship Mentorship @relation(fields: [mentorshipId], references: [id], onDelete: Cascade)
+  messages   Message[]
+
+  @@index([mentorshipId])
+}
+
+model Message {
+  id             String      @id @default(cuid())
+  conversationId String
+  senderId       String
+  content        String      @db.Text
+  type           MessageType @default(TEXT)
+  fileUrl        String?
+  fileName       String?
+  isRead         Boolean     @default(false)
+  readAt         DateTime?
+  createdAt      DateTime    @default(now())
+
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  sender       User         @relation("SentMessages", fields: [senderId], references: [id], onDelete: Cascade)
+
+  @@index([conversationId])
+  @@index([senderId])
+  @@index([createdAt])
+}
+
+model Event {
+  id          String   @id @default(cuid())
+  title       String
+  description String   @db.Text
+  date        DateTime
+  time        String
+  venue       String
+  bannerImage String?
+  createdById String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  createdBy     User                @relation(fields: [createdById], references: [id], onDelete: Cascade)
+  registrations EventRegistration[]
+
+  @@index([date])
+  @@index([createdById])
+}
+
+model EventRegistration {
+  id        String   @id @default(cuid())
+  eventId   String
+  userId    String
+  createdAt DateTime @default(now())
+
+  event Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([eventId, userId])
+  @@index([eventId])
+  @@index([userId])
+}
+
+model Announcement {
+  id          String               @id @default(cuid())
+  title       String
+  content     String               @db.Text
+  category    AnnouncementCategory
+  authorId    String
+  publishedAt DateTime             @default(now())
+  createdAt   DateTime             @default(now())
+  updatedAt   DateTime             @updatedAt
+
+  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@index([category])
+  @@index([publishedAt])
+  @@index([authorId])
+}
+
+model Notification {
+  id        String           @id @default(cuid())
+  userId    String
+  type      NotificationType
+  title     String
+  message   String           @db.Text
+  link      String?
+  isRead    Boolean          @default(false)
+  readAt    DateTime?
+  createdAt DateTime         @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([isRead])
+  @@index([createdAt])
+}
+
+model AdminBroadcast {
+  id        String        @id @default(cuid())
+  title     String
+  content   String        @db.Text
+  mode      BroadcastMode @default(ANNOUNCEMENT)
+  authorId  String
+  isActive  Boolean       @default(true)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  author   User               @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  messages CommunityMessage[]
+
+  @@index([mode])
+  @@index([isActive])
+}
+
+model CommunityMessage {
+  id          String   @id @default(cuid())
+  broadcastId String
+  authorId    String
+  content     String   @db.Text
+  parentId    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  broadcast AdminBroadcast     @relation(fields: [broadcastId], references: [id], onDelete: Cascade)
+  author    User               @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  parent    CommunityMessage?  @relation("MessageReplies", fields: [parentId], references: [id], onDelete: Cascade)
+  replies   CommunityMessage[] @relation("MessageReplies")
+
+  @@index([broadcastId])
+  @@index([authorId])
+  @@index([parentId])
+}
