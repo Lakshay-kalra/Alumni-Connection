@@ -1,5 +1,7 @@
 import { auth } from "@/auth";
-export type Role = "STUDENT" | "ALUMNI" | "ADMIN";
+import type { UserRole } from "@/lib/backend-auth";
+
+export type Role = UserRole;
 import { redirect } from "next/navigation";
 
 export async function getCurrentUser() {

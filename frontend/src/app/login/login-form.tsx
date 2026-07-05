@@ -2,17 +2,18 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { signIn, getSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { loginUser } from "@/actions/auth";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema, type LoginInput } from "@/lib/validations";
+import { getDashboardPath } from "@/lib/auth-utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ArrowRight, Eye, EyeOff, AlertCircle } from "lucide-react";
 
-export default function LoginPage() {
+export default function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl");
@@ -21,7 +22,11 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [showPass, setShowPass] = useState(false);
 
-  const { register, handleSubmit, formState: { errors } } = useForm<LoginInput>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginInput>({
     resolver: zodResolver(loginSchema),
   });
 
@@ -35,35 +40,49 @@ export default function LoginPage() {
     setLoading(true);
     setError("");
 
-    const result = await loginUser(data.email, data.password, callbackUrl);
+    const result = await signIn("credentials", {
+      email: data.email.trim().toLowerCase(),
+      password: data.password,
+      redirect: false,
+    });
 
-    if (!result.success) {
-      setError(result.error);
+    if (result?.error) {
+      setError("Invalid email or password. Please try again.");
       setLoading(false);
       return;
     }
 
-    router.push(result.redirectTo);
-    router.refresh();
+    const session = await getSession();
+    const role = session?.user?.role;
+
+    if (!role) {
+      setError("Sign-in succeeded but the session could not be loaded. Please try again.");
+      setLoading(false);
+      return;
+    }
+
+    window.location.assign(callbackUrl || getDashboardPath(role));
   };
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-muted/30 p-4">
       <div className="w-full max-w-md">
-        {/* Logo */}
         <div className="text-center mb-8">
           <div className="mx-auto mb-4 flex items-center justify-center">
             <img src="/logo.jpeg" alt="Logo" className="h-16 w-auto rounded-2xl shadow-lg border" />
           </div>
-          <h1 className="text-2xl font-bold" style={{ fontFamily: 'Outfit, sans-serif' }}>Welcome back</h1>
-          <p className="text-muted-foreground mt-1 text-sm">Sign in to your Alumni Network account</p>
+          <h1 className="text-2xl font-bold" style={{ fontFamily: "Outfit, sans-serif" }}>
+            Welcome back
+          </h1>
+          <p className="text-muted-foreground mt-1 text-sm">
+            Sign in to your Alumni Network account
+          </p>
         </div>
 
-        {/* Card */}
         <div className="rounded-2xl border bg-card shadow-xl shadow-black/5 p-8">
           {registered && (
             <div className="mb-4 flex items-center gap-2 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 p-3 text-sm text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-900">
-              ✅ Account created! Please sign in below.
+              Account created! Please sign in below.
             </div>
           )}
 
@@ -76,20 +95,27 @@ export default function LoginPage() {
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
             <div className="space-y-1.5">
-              <Label htmlFor="email" className="text-sm font-medium">Email address</Label>
+              <Label htmlFor="email" className="text-sm font-medium">
+                Email address
+              </Label>
               <Input
                 id="email"
                 type="email"
+                autoComplete="email"
                 placeholder="you@example.com"
                 className="h-11"
                 {...register("email")}
               />
-              {errors.email && <p className="text-xs text-destructive">{errors.email.message}</p>}
+              {errors.email && (
+                <p className="text-xs text-destructive">{errors.email.message}</p>
+              )}
             </div>
 
             <div className="space-y-1.5">
               <div className="flex items-center justify-between">
-                <Label htmlFor="password" className="text-sm font-medium">Password</Label>
+                <Label htmlFor="password" className="text-sm font-medium">
+                  Password
+                </Label>
                 <Link href="/forgot-password" className="text-xs text-primary hover:underline">
                   Forgot password?
                 </Link>
@@ -98,21 +124,29 @@ export default function LoginPage() {
                 <Input
                   id="password"
                   type={showPass ? "text" : "password"}
+                  autoComplete="current-password"
                   className="h-11 pr-10"
                   {...register("password")}
                 />
                 <button
                   type="button"
-                  onClick={() => setShowPass(!showPass)}
+                  onClick={() => setShowPass((v) => !v)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                  aria-label={showPass ? "Hide password" : "Show password"}
                 >
                   {showPass ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
               </div>
-              {errors.password && <p className="text-xs text-destructive">{errors.password.message}</p>}
+              {errors.password && (
+                <p className="text-xs text-destructive">{errors.password.message}</p>
+              )}
             </div>
 
-            <Button type="submit" className="w-full h-11 text-base shadow-lg shadow-primary/20" disabled={loading}>
+            <Button
+              type="submit"
+              className="w-full h-11 text-base shadow-lg shadow-primary/20"
+              disabled={loading}
+            >
               {loading ? (
                 <span className="flex items-center gap-2">
                   <span className="h-4 w-4 animate-spin rounded-full border-2 border-primary-foreground border-t-transparent" />
@@ -134,13 +168,21 @@ export default function LoginPage() {
           </div>
         </div>
 
-        {/* Demo credentials */}
         <div className="mt-6 rounded-xl border bg-card p-4 text-xs space-y-1.5">
-          <p className="font-semibold text-foreground mb-2">🔑 Demo credentials:</p>
+          <p className="font-semibold text-foreground mb-2">Demo credentials:</p>
           <div className="grid gap-1.5">
-            <p className="text-muted-foreground"><span className="font-medium text-foreground">Admin:</span> admin@alumninetwork.com / Admin@123</p>
-            <p className="text-muted-foreground"><span className="font-medium text-foreground">Alumni:</span> vikram.singh@google.com / Alumni@123</p>
-            <p className="text-muted-foreground"><span className="font-medium text-foreground">Student:</span> arjun.sharma@chitkara.edu.in / Student@123</p>
+            <p className="text-muted-foreground">
+              <span className="font-medium text-foreground">Admin:</span>{" "}
+              admin@alumninetwork.com / Admin@123
+            </p>
+            <p className="text-muted-foreground">
+              <span className="font-medium text-foreground">Alumni:</span>{" "}
+              vikram.singh@google.com / Alumni@123
+            </p>
+            <p className="text-muted-foreground">
+              <span className="font-medium text-foreground">Student:</span>{" "}
+              arjun.sharma@chitkara.edu.in / Student@123
+            </p>
           </div>
         </div>
       </div>

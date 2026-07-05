@@ -1,19 +1,18 @@
 import NextAuth, { CredentialsSignin } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { loginSchema } from "@/lib/validations";
+import { loginWithBackend, type UserRole } from "@/lib/backend-auth";
 
 class InvalidCredentialsError extends CredentialsSignin {
   code = "invalid-credentials";
 }
-
-type Role = "STUDENT" | "ALUMNI" | "ADMIN";
 
 declare module "next-auth" {
   interface Session {
     user: {
       id: string;
       email: string;
-      role: Role;
+      role: UserRole;
       name?: string | null;
       image?: string | null;
     };
@@ -23,18 +22,26 @@ declare module "next-auth" {
   interface User {
     id: string;
     email: string;
-    role: Role;
+    role: UserRole;
     name?: string | null;
     image?: string | null;
     token?: string;
   }
 }
 
+declare module "next-auth/jwt" {
+  interface JWT {
+    id?: string;
+    role?: UserRole;
+    accessToken?: string;
+  }
+}
+
 export const { handlers, auth, signIn, signOut } = NextAuth({
+  secret: process.env.AUTH_SECRET ?? process.env.NEXTAUTH_SECRET,
+  trustHost: true,
   session: { strategy: "jwt" },
-  pages: {
-    signIn: "/login",
-  },
+  pages: { signIn: "/login" },
   providers: [
     Credentials({
       credentials: {
@@ -45,37 +52,23 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         const parsed = loginSchema.safeParse(credentials);
         if (!parsed.success) return null;
 
-        const apiURL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+        const result = await loginWithBackend(
+          parsed.data.email,
+          parsed.data.password
+        );
 
-        const res = await fetch(`${apiURL}/api/auth/login`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: parsed.data.email,
-            password: parsed.data.password,
-          }),
-        });
-
-        const data = await res.json().catch(() => ({}));
-
-        if (!res.ok) {
+        if (!result.ok) {
           throw new InvalidCredentialsError();
         }
 
-        if (data.success && data.user) {
-          return {
-            id: data.user.id,
-            email: data.user.email,
-            role: data.user.role,
-            name: data.user.name,
-            image: data.user.image,
-            token: data.token,
-          };
-        }
-
-        return null;
+        return {
+          id: result.user.id,
+          email: result.user.email,
+          role: result.user.role,
+          name: result.user.name,
+          image: result.user.image,
+          token: result.token,
+        };
       },
     }),
   ],
@@ -85,7 +78,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         token.id = user.id;
         token.role = user.role;
         token.name = user.name;
-        token.image = user.image;
+        token.picture = user.image;
         token.accessToken = user.token;
       }
       return token;
@@ -93,9 +86,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     async session({ session, token }) {
       if (session.user) {
         session.user.id = token.id as string;
-        session.user.role = token.role as Role;
+        session.user.role = token.role as UserRole;
         session.user.name = token.name as string | null;
-        session.user.image = token.image as string | null;
+        session.user.image = token.picture as string | null;
       }
       session.accessToken = token.accessToken as string;
       return session;
