@@ -3,7 +3,7 @@
 /.pnp
 .pnp.js
 .yarn/install-state.gz
-/frontend
+/frontend/node_modules
 
 node_modules/
 # testing
