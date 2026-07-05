@@ -17,10 +17,13 @@ const router = Router();
 // Authentication
 router.post("/auth/register", auth.register);
 router.post("/auth/login", auth.login);
+router.post("/auth/logout", auth.logout);
 router.get("/auth/me", requireAuth, auth.me);
 router.get("/auth/verify-email", auth.verifyEmailToken);
 
 // Students
+router.get("/students/me", requireAuth, student.getProfile);
+router.put("/students/me", requireAuth, student.updateProfile);
 router.get("/students/profile", requireAuth, student.getProfile);
 router.put("/students/profile", requireAuth, student.updateProfile);
 router.post("/students/verify", requireAuth, student.submitVerification);
@@ -28,7 +31,9 @@ router.post("/students/verify", requireAuth, student.submitVerification);
 // Alumni
 router.get("/alumni", requireAuth, alumni.listAlumni);
 router.get("/alumni/:id", requireAuth, alumni.getAlumniDetails);
+router.put("/alumni/me", requireAuth, alumni.updateProfile);
 router.put("/alumni/profile", requireAuth, alumni.updateProfile);
+router.post("/alumni/request", requireAuth, alumni.submitVerification);
 router.post("/alumni/verify", requireAuth, alumni.submitVerification);
 
 // Mentorship
@@ -40,6 +45,7 @@ router.post("/mentorship/reject", requireAuth, mentorship.rejectRequest);
 // Chat
 router.get("/chat/conversations", requireAuth, chat.getUserConversations);
 router.get("/chat/messages/:conversationId", requireAuth, chat.getChatMessages);
+router.get("/chat/:conversationId", requireAuth, chat.getChatMessages);
 router.post("/chat/send", requireAuth, chat.sendMessage);
 
 // Events
@@ -68,6 +74,7 @@ router.post("/upload", requireAuth, upload.uploadFile);
 router.get("/admin/dashboard", requireAuth, admin.getDashboardStats);
 router.get("/admin/users", requireAuth, admin.listUsers);
 router.delete("/admin/users/:userId", requireAuth, admin.deleteUser);
+router.put("/admin/verify", requireAuth, admin.verifyUser);
 router.post("/admin/verify-student", requireAuth, admin.verifyStudent);
 router.post("/admin/verify-alumni", requireAuth, admin.verifyAlumni);
 router.post("/admin/broadcast", requireAuth, admin.createBroadcast);

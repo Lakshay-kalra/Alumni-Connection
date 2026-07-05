@@ -252,3 +252,7 @@ export async function me(req: AuthenticatedRequest, res: Response) {
     return res.status(500).json({ error: error.message || "Failed to fetch user context" });
   }
 }
+
+export async function logout(req: Request, res: Response) {
+  return res.json({ success: true, message: "Logged out successfully" });
+}

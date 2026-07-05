@@ -326,3 +326,24 @@ export async function importAlumni(req: AuthenticatedRequest, res: Response) {
     return res.status(500).json({ error: error.message || "Bulk import failed" });
   }
 }
+
+export async function verifyUser(req: AuthenticatedRequest, res: Response) {
+  if (!req.user || req.user.role !== "ADMIN") {
+    return res.status(403).json({ error: "Access denied" });
+  }
+
+  const { type, id, action } = req.body;
+  if (!type || !id || !action) {
+    return res.status(400).json({ error: "type (student/alumni), id (profileId), and action (approve/reject) are required" });
+  }
+
+  if (type === "student") {
+    req.body.studentProfileId = id;
+    return verifyStudent(req, res);
+  } else if (type === "alumni") {
+    req.body.alumniProfileId = id;
+    return verifyAlumni(req, res);
+  } else {
+    return res.status(400).json({ error: "Invalid type. Must be 'student' or 'alumni'" });
+  }
+}
