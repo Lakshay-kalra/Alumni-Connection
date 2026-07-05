@@ -1,16 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { loginUser } from "@/actions/auth";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema, type LoginInput } from "@/lib/validations";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { GraduationCap, ArrowRight, Eye, EyeOff, AlertCircle } from "lucide-react";
+import { ArrowRight, Eye, EyeOff, AlertCircle } from "lucide-react";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -25,31 +25,26 @@ export default function LoginPage() {
     resolver: zodResolver(loginSchema),
   });
 
+  useEffect(() => {
+    router.prefetch("/admin/dashboard");
+    router.prefetch("/student/dashboard");
+    router.prefetch("/alumni/dashboard");
+  }, [router]);
+
   const onSubmit = async (data: LoginInput) => {
     setLoading(true);
     setError("");
-    const result = await signIn("credentials", {
-      email: data.email,
-      password: data.password,
-      redirect: false,
-    });
 
-    if (result?.error) {
-      const err = result.error.toLowerCase();
-      if (err.includes("verify-email")) {
-        setError("Please verify your email address to activate your account.");
-      } else if (err.includes("pending-verification")) {
-        setError("Your account is pending administrator verification. We will notify you when it is approved.");
-      } else if (err.includes("rejected-verification")) {
-        setError("Your verification request was rejected. Please contact support.");
-      } else {
-        setError("Invalid email or password. Please try again.");
-      }
+    const result = await loginUser(data.email, data.password, callbackUrl);
+
+    if (!result.success) {
+      setError(result.error);
       setLoading(false);
       return;
     }
 
-    window.location.href = callbackUrl || "/dashboard";
+    router.push(result.redirectTo);
+    router.refresh();
   };
 
   return (

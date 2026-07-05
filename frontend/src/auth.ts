@@ -1,6 +1,10 @@
-import NextAuth from "next-auth";
+import NextAuth, { CredentialsSignin } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { loginSchema } from "@/lib/validations";
+
+class InvalidCredentialsError extends CredentialsSignin {
+  code = "invalid-credentials";
+}
 
 type Role = "STUDENT" | "ALUMNI" | "ADMIN";
 
@@ -43,38 +47,35 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
         const apiURL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 
-        try {
-          const res = await fetch(`${apiURL}/api/auth/login`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              email: parsed.data.email,
-              password: parsed.data.password,
-            }),
-          });
+        const res = await fetch(`${apiURL}/api/auth/login`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: parsed.data.email,
+            password: parsed.data.password,
+          }),
+        });
 
-          const data = await res.json();
-          if (!res.ok) {
-            // NextAuth extracts thrown error message to error query param
-            throw new Error(data.error || "Invalid credentials");
-          }
+        const data = await res.json().catch(() => ({}));
 
-          if (data.success && data.user) {
-            return {
-              id: data.user.id,
-              email: data.user.email,
-              role: data.user.role,
-              name: data.user.name,
-              image: data.user.image,
-              token: data.token, // Store JWT token returned by backend
-            };
-          }
-          return null;
-        } catch (err: any) {
-          throw new Error(err.message || "Authentication failed");
+        if (!res.ok) {
+          throw new InvalidCredentialsError();
         }
+
+        if (data.success && data.user) {
+          return {
+            id: data.user.id,
+            email: data.user.email,
+            role: data.user.role,
+            name: data.user.name,
+            image: data.user.image,
+            token: data.token,
+          };
+        }
+
+        return null;
       },
     }),
   ],

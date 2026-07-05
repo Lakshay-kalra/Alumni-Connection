@@ -129,26 +129,6 @@ export async function login(req: Request, res: Response) {
       return res.status(401).json({ error: "Invalid email or password" });
     }
 
-    // Role-based Verification Status Checks
-    if (user.role === "STUDENT") {
-      if (user.email.endsWith("@chitkara.edu.in") && !user.emailVerified) {
-        return res.status(403).json({ error: "verify-email" });
-      }
-      if (user.studentProfile?.verificationStatus === "PENDING") {
-        return res.status(403).json({ error: "pending-verification" });
-      }
-      if (user.studentProfile?.verificationStatus === "REJECTED") {
-        return res.status(403).json({ error: "rejected-verification" });
-      }
-    } else if (user.role === "ALUMNI") {
-      if (user.alumniProfile?.verificationStatus === "PENDING") {
-        return res.status(403).json({ error: "pending-verification" });
-      }
-      if (user.alumniProfile?.verificationStatus === "REJECTED") {
-        return res.status(403).json({ error: "rejected-verification" });
-      }
-    }
-
     const secret = process.env.JWT_SECRET || "jwtsecretkey";
     const name = user.studentProfile?.name ?? user.alumniProfile?.name ?? user.email;
 

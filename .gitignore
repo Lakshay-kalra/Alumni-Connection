@@ -1,50 +1,56 @@
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
-.yarn/install-state.gz
-/frontend/node_modules
-
+# Dependencies
 node_modules/
-# testing
-/coverage
 
-# next.js
-/.next/
-/out/
+# Environment & secrets
+.env
+.env.*
+!.env.example
+!**/.env.example
 
-# production
-/build
+# Next.js
+.next/
+out/
 
-# misc
-.DS_Store
-.idea/
-*.pem
+# Build outputs
+dist/
+build/
 
-# debug
+# Debug logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
 
-# env files
-.env
-.env*.local
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-backend/.env
+# IDE / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
 
-# vercel
-.vercel
-
-# typescript
+# TypeScript
 *.tsbuildinfo
-next-env.d.ts
 
-# uploads
-/public/uploads
+# Vercel / Turbo
+.vercel
+.turbo
 
-# backend folder exclusions
-/backend/node_modules
-/backend/dist
+# TLS keys
+*.pem
+
+# Test coverage
+coverage/
+
+# User uploads (keep folders, ignore generated files)
+public/uploads/*
+!public/uploads/.gitkeep
+frontend/public/uploads/*
+!frontend/public/uploads/.gitkeep
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+# Yarn / PnP
+.pnp
+.pnp.js
+.yarn/install-state.gz
