@@ -48,18 +48,18 @@ export default async function AlumniDashboard() {
   const isFull = menteeCount >= 2;
 
   const stats = [
-    { label: "Pending Requests", value: alumni.mentorshipRequests.length, icon: Clock, color: "text-amber-600 dark:text-amber-400", bg: "bg-amber-500/10" },
-    { label: "Active Mentees", value: `${menteeCount}/2`, icon: Users, color: "text-emerald-600 dark:text-emerald-400", bg: "bg-emerald-500/10" },
-    { label: "Upcoming Events", value: events.length, icon: Calendar, color: "text-blue-600 dark:text-blue-400", bg: "bg-blue-500/10" },
-    { label: "Announcements", value: announcements.length, icon: Megaphone, color: "text-violet-600 dark:text-violet-400", bg: "bg-violet-500/10" },
+    { label: "Pending Requests", value: alumni.mentorshipRequests.length, icon: Clock, color: "text-[#F5A623]", bg: "bg-[#F5A623]/10" },
+    { label: "Active Mentees", value: `${menteeCount}/2`, icon: Users, color: "text-[#E31E24]", bg: "bg-[#E31E24]/10" },
+    { label: "Upcoming Events", value: events.length, icon: Calendar, color: "text-[#E31E24]", bg: "bg-[#E31E24]/10" },
+    { label: "Announcements", value: announcements.length, icon: Megaphone, color: "text-[#E31E24]", bg: "bg-[#E31E24]/10" },
   ];
 
   const categoryColors: Record<string, string> = {
-    NEWS: "bg-blue-500/10 text-blue-600 dark:text-blue-400",
-    ACHIEVEMENT: "bg-amber-500/10 text-amber-600 dark:text-amber-400",
-    PLACEMENT_REPORT: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
-    DEPARTMENT_UPDATE: "bg-violet-500/10 text-violet-600 dark:text-violet-400",
-    CAMPUS_UPDATE: "bg-rose-500/10 text-rose-600 dark:text-rose-400",
+    NEWS: "bg-[#E31E24]/10 text-[#E31E24]",
+    ACHIEVEMENT: "bg-[#E31E24]/10 text-[#E31E24]",
+    PLACEMENT_REPORT: "bg-[#E31E24]/10 text-[#E31E24]",
+    DEPARTMENT_UPDATE: "bg-[#E31E24]/10 text-[#E31E24]",
+    CAMPUS_UPDATE: "bg-[#F5A623]/10 text-[#F5A623]",
   };
 
   return (
@@ -107,7 +107,7 @@ export default async function AlumniDashboard() {
         <CardHeader className="flex flex-row items-center justify-between">
           <div>
             <CardTitle className="flex items-center gap-2">
-              <Star className="h-5 w-5 text-amber-500" />
+              <Star className="h-5 w-5 text-[#E31E24]" />
               Mentorship Requests
             </CardTitle>
             <CardDescription>Review and respond to student mentorship requests</CardDescription>
@@ -154,7 +154,7 @@ export default async function AlumniDashboard() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Users className="h-5 w-5 text-emerald-500" />
+              <Users className="h-5 w-5 text-[#E31E24]" />
               Active Mentees
             </CardTitle>
             <CardDescription>Your current mentee relationships</CardDescription>
@@ -185,7 +185,7 @@ export default async function AlumniDashboard() {
           <CardHeader className="flex flex-row items-center justify-between">
             <div>
               <CardTitle className="flex items-center gap-2">
-                <Calendar className="h-5 w-5 text-blue-500" />
+                <Calendar className="h-5 w-5 text-[#E31E24]" />
                 Upcoming Events
               </CardTitle>
               <CardDescription>Alumni events and meetups</CardDescription>
@@ -214,7 +214,7 @@ export default async function AlumniDashboard() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle className="flex items-center gap-2">
-              <Megaphone className="h-5 w-5 text-violet-500" />
+              <Megaphone className="h-5 w-5 text-[#E31E24]" />
               Recent Announcements
             </CardTitle>
             <Button variant="ghost" size="sm" asChild className="gap-1">

@@ -1,0 +1,117 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e125] [cursor=pointer]:
+    - button "Open Next.js Dev Tools" [ref=e126]
+    - generic [ref=e130]:
+      - button "Open issues overlay" [ref=e131]:
+        - generic [ref=e132]:
+          - generic [ref=e133]: "0"
+          - generic [ref=e134]: "1"
+        - generic [ref=e135]: Issue
+      - button "Collapse issues badge" [ref=e136]
+  - alert [ref=e139]
+  - generic [ref=e140]:
+    - banner [ref=e141]:
+      - generic [ref=e142]:
+        - link "Alumni Network Logo Alumni Network" [ref=e143] [cursor=pointer]:
+          - /url: /admin/dashboard
+          - img "Alumni Network Logo" [ref=e144]
+          - generic [ref=e145]: Alumni Network
+        - generic [ref=e146]:
+          - button [ref=e148] [cursor=pointer]
+          - generic [ref=e149]:
+            - generic [ref=e150]: A
+            - generic [ref=e152]:
+              - paragraph [ref=e153]: admin@alumninetwork.com
+              - paragraph [ref=e154]: admin
+          - button "Sign out" [ref=e155] [cursor=pointer]
+    - generic [ref=e156]:
+      - complementary [ref=e157]:
+        - generic [ref=e158]:
+          - generic [ref=e159]: Administrator
+          - navigation [ref=e162]:
+            - link "Dashboard" [ref=e163] [cursor=pointer]:
+              - /url: /admin/dashboard
+            - link "Student Verification" [ref=e172] [cursor=pointer]:
+              - /url: /admin/verification/students
+            - link "Alumni Verification" [ref=e178] [cursor=pointer]:
+              - /url: /admin/verification/alumni
+            - link "Import Alumni" [ref=e183] [cursor=pointer]:
+              - /url: /admin/import
+            - link "Alumni" [ref=e188] [cursor=pointer]:
+              - /url: /alumni-directory
+            - link "Events" [ref=e195] [cursor=pointer]:
+              - /url: /events
+            - link "Announcements" [ref=e199] [cursor=pointer]:
+              - /url: /announcements
+            - link "Community" [ref=e204] [cursor=pointer]:
+              - /url: /community
+            - link "Settings" [ref=e208] [cursor=pointer]:
+              - /url: /settings
+          - generic [ref=e214]:
+            - generic [ref=e215]: A
+            - generic [ref=e217]:
+              - paragraph [ref=e218]: admin@alumninetwork.com
+              - paragraph [ref=e219]: admin@alumninetwork.com
+      - main [ref=e220]:
+        - generic [ref=e221]:
+          - generic [ref=e223]:
+            - heading "Admin Dashboard" [level=1] [ref=e224]
+            - paragraph [ref=e225]: Platform overview and management tools
+          - generic [ref=e226]:
+            - generic [ref=e228]:
+              - generic [ref=e233]: "0"
+              - paragraph [ref=e234]: Verified Alumni
+            - generic [ref=e236]:
+              - generic [ref=e243]: "0"
+              - paragraph [ref=e244]: Total Students
+            - generic [ref=e246]:
+              - generic [ref=e250]: "0"
+              - paragraph [ref=e251]: Active Mentorships
+            - generic [ref=e253]:
+              - generic [ref=e257]: "0"
+              - paragraph [ref=e258]: Upcoming Events
+            - generic [ref=e260]:
+              - generic [ref=e266]: "0"
+              - paragraph [ref=e267]: Event Registrations
+            - generic [ref=e269]:
+              - generic [ref=e274]: "0"
+              - paragraph [ref=e275]: Pending Verifications
+          - generic [ref=e276]:
+            - generic [ref=e278]:
+              - heading "User Breakdown" [level=3] [ref=e279]
+              - paragraph [ref=e281]: Total users by role
+            - generic [ref=e288]:
+              - generic [ref=e289]:
+                - heading "Mentorship Requests" [level=3] [ref=e290]
+                - paragraph [ref=e294]: 0 total requests
+              - generic [ref=e295]: No requests yet
+            - generic [ref=e297]:
+              - generic [ref=e298]:
+                - heading "Event Participation" [level=3] [ref=e299]
+                - paragraph [ref=e302]: Total registrations across all events
+              - generic [ref=e303]:
+                - generic [ref=e307]:
+                  - paragraph [ref=e308]: "0"
+                  - paragraph [ref=e309]: registrations
+                - paragraph [ref=e310]: Alumni registered for events
+          - generic [ref=e311]:
+            - generic [ref=e312]:
+              - generic [ref=e313]:
+                - heading "Verification Action Center" [level=3] [ref=e314]
+                - paragraph [ref=e318]: Manage student ID and alumni LinkedIn verification queues
+              - generic [ref=e319]:
+                - generic [ref=e320]:
+                  - generic [ref=e321]:
+                    - paragraph [ref=e322]: Student Verification Queue
+                    - paragraph [ref=e323]: 0 students waiting for ID approval
+                  - link [ref=e324] [cursor=pointer]:
+                    - /url: /admin/verification/students
+                - generic [ref=e328]:
+                  - generic [ref=e329]:
+                    - paragraph [ref=e330]: Alumni Verification Queue
+                    - paragraph [ref=e331]: 0 alumni waiting for LinkedIn approval
+                  - link [ref=e332] [cursor=pointer]:
+                    - /url: /admin/verification/alumni
+            - generic [ref=e337]:
+              - heading "Recent Registrations" [level=3] [ref=e338]
+              - paragraph [ref=e342]: Latest users to join the platform

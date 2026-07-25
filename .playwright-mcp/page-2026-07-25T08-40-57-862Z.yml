@@ -1,0 +1,19 @@
+- generic [ref=f4e2]:
+  - generic [ref=f4e3]:
+    - heading "Settings" [level=1] [ref=f4e4]
+    - paragraph [ref=f4e5]: Account and notification preferences
+  - generic [ref=f4e6]:
+    - heading "Account" [level=3] [ref=f4e8]
+    - generic [ref=f4e9]:
+      - paragraph [ref=f4e10]:
+        - strong [ref=f4e11]: "Email:"
+        - text: admin@alumninetwork.com
+      - paragraph [ref=f4e12]:
+        - strong [ref=f4e13]: "Role:"
+      - generic [ref=f4e14]: ADMIN
+      - paragraph
+      - link "Go to Dashboard" [ref=f4e15] [cursor=pointer]:
+        - /url: /admin/dashboard
+  - generic [ref=f4e16]:
+    - heading "Recent Notifications" [level=3] [ref=f4e18]
+    - paragraph [ref=f4e20]: No notifications.

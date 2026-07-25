@@ -11,7 +11,18 @@ import { getDashboardPath } from "@/lib/auth-utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ArrowRight, Eye, EyeOff, AlertCircle } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
+import { motion } from "framer-motion";
+import {
+  ArrowRight,
+  AlertCircle,
+  Mail,
+  Lock,
+  Users,
+  MessageSquare,
+  CheckCircle2,
+} from "lucide-react";
+import HeroParticles from "@/components/ui/hero-particles";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -21,6 +32,7 @@ export default function LoginForm() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPass, setShowPass] = useState(false);
+  const [keepSignedIn, setKeepSignedIn] = useState(false);
 
   const {
     register,
@@ -65,91 +77,204 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-muted/30 p-4">
-      <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <div className="mx-auto mb-4 flex items-center justify-center">
-            <img src="/logo.jpeg" alt="Logo" className="h-16 w-auto rounded-2xl shadow-lg border" />
-          </div>
-          <h1 className="text-2xl font-bold" style={{ fontFamily: "Outfit, sans-serif" }}>
-            Welcome back
-          </h1>
-          <p className="text-muted-foreground mt-1 text-sm">
-            Sign in to your Alumni Network account
-          </p>
+    <div className="flex min-h-screen bg-[#1A1A1A]">
+
+      {/* ── Left Panel ── */}
+      <div className="hidden lg:flex lg:w-[52%] relative overflow-hidden items-center justify-center">
+        {/* Particle layer */}
+        <div className="absolute inset-0">
+          <HeroParticles />
         </div>
 
-        <div className="rounded-2xl border bg-card shadow-xl shadow-black/5 p-8">
-          {registered && (
-            <div className="mb-4 flex items-center gap-2 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 p-3 text-sm text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-900">
-              Account created! Please sign in below.
+        {/* Atmospheric glow */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-[-15%] left-[-5%] w-[65%] h-[65%] rounded-full bg-[#E31E24]/6 blur-[160px]" />
+          <div className="absolute bottom-[-15%] right-[-5%] w-[55%] h-[55%] rounded-full bg-[#1A1A1A]/4 blur-[140px]" />
+        </div>
+
+        {/* Decorative grid lines */}
+        <div className="absolute inset-0 pointer-events-none opacity-[0.04]"
+          style={{
+            backgroundImage: `linear-gradient(rgba(227,30,36,1) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(227,30,36,1) 1px, transparent 1px)`,
+            backgroundSize: "60px 60px",
+          }}
+        />
+
+        {/* Content */}
+        <motion.div
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          className="relative z-10 px-14 max-w-lg w-full"
+        >
+          {/* Brand */}
+          <div className="mb-14">
+            <div className="flex items-center gap-3 mb-8">
+              <div className="h-px flex-1 bg-[#E31E24]/20" />
+              <span className="text-[10px] font-semibold tracking-[0.2em] uppercase text-[#E31E24]/60">Alumni Network</span>
+              <div className="h-px flex-1 bg-[#E31E24]/20" />
             </div>
+            <h1 className="font-display text-5xl font-bold leading-[1.1] text-white mb-4">
+              Where careers<br />
+              <em className="not-italic gradient-red">take root.</em>
+            </h1>
+            <p className="text-[#666666] text-sm leading-relaxed font-light">
+              The private platform for students and alumni to connect, mentor, and grow together.
+            </p>
+          </div>
+
+          {/* Feature list */}
+          <div className="space-y-4 mb-12">
+            {[
+              { icon: Users, title: "Verified alumni profiles", desc: "Every mentor is authenticated by admins" },
+              { icon: MessageSquare, title: "Direct mentorship chat", desc: "Real-time, private conversations" },
+              { icon: CheckCircle2, title: "Curated events", desc: "Career fairs, talks, and networking" },
+            ].map((f, i) => (
+              <motion.div
+                key={f.title}
+                initial={{ opacity: 0, x: -16 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 + i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                className="flex items-center gap-4"
+              >
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-[#E31E24]/15 bg-[#E31E24]/6">
+                  <f.icon className="h-4 w-4 text-[#E31E24]" />
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-white">{f.title}</p>
+                  <p className="text-xs text-[#666666]">{f.desc}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Bottom divider */}
+          <div className="flex items-center gap-3">
+            <div className="h-px flex-1 bg-[#E31E24]/12" />
+            <span className="text-[10px] font-semibold tracking-[0.18em] uppercase text-[#E31E24]/40">Exclusive Network</span>
+            <div className="h-px flex-1 bg-[#E31E24]/12" />
+          </div>
+        </motion.div>
+      </div>
+
+      {/* ── Right Panel — Form ── */}
+      <div className="flex-1 flex items-center justify-center p-6 lg:p-10 bg-[#1A1A1A] lg:bg-[#F5F5F5]">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="w-full max-w-[380px]"
+        >
+          {/* Mobile heading */}
+          <div className="lg:hidden text-center mb-8">
+            <h1 className="font-display text-2xl font-bold text-[#1A1A1A]">Alumni Network</h1>
+            <p className="text-[#666666] mt-1 text-sm">Sign in to your account</p>
+          </div>
+
+          {/* Heading */}
+          <div className="mb-8">
+            <p className="text-[10px] font-semibold tracking-[0.18em] uppercase text-[#E31E24] mb-3">Welcome back</p>
+            <h2 className="font-display text-3xl font-bold text-[#1A1A1A] leading-tight">Sign in to<br />your account</h2>
+          </div>
+
+          {/* Alerts */}
+          {registered && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              className="mb-5 flex items-center gap-2 rounded-xl bg-[#E31E24]/8 border border-[#E31E24]/20 p-3 text-sm text-[#E31E24]"
+            >
+              <CheckCircle2 className="h-4 w-4 shrink-0" />
+              Account created successfully. Please sign in below.
+            </motion.div>
           )}
 
           {error && (
-            <div className="mb-4 flex items-center gap-2 rounded-xl bg-destructive/10 p-3 text-sm text-destructive border border-destructive/20">
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              className="mb-5 flex items-center gap-2 rounded-xl bg-destructive/10 border border-destructive/20 p-3 text-sm text-destructive"
+            >
               <AlertCircle className="h-4 w-4 shrink-0" />
               {error}
-            </div>
+            </motion.div>
           )}
 
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+          {/* Form */}
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+            {/* Email */}
             <div className="space-y-1.5">
-              <Label htmlFor="email" className="text-sm font-medium">
+              <Label htmlFor="email" className="text-xs font-semibold uppercase tracking-wider text-[#666666]">
                 Email address
               </Label>
-              <Input
-                id="email"
-                type="email"
-                autoComplete="email"
-                placeholder="you@example.com"
-                className="h-11"
-                {...register("email")}
-              />
-              {errors.email && (
-                <p className="text-xs text-destructive">{errors.email.message}</p>
-              )}
+              <div className="relative">
+                <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#E31E24]/50" />
+                <Input
+                  id="email"
+                  type="email"
+                  autoComplete="email"
+                  placeholder="you@example.com"
+                  className="h-11 pl-10 bg-white border-[#E31E24]/12 text-[#1A1A1A] placeholder:text-[#666666]/60 focus-visible:ring-[#E31E24]/40 focus-visible:border-[#E31E24]/30 transition-colors"
+                  {...register("email")}
+                />
+              </div>
+              {errors.email && <p className="text-xs text-destructive">{errors.email.message}</p>}
             </div>
 
+            {/* Password */}
             <div className="space-y-1.5">
               <div className="flex items-center justify-between">
-                <Label htmlFor="password" className="text-sm font-medium">
+                <Label htmlFor="password" className="text-xs font-semibold uppercase tracking-wider text-[#666666]">
                   Password
                 </Label>
-                <Link href="/forgot-password" className="text-xs text-primary hover:underline">
-                  Forgot password?
+                <Link href="/forgot-password" className="text-xs text-[#E31E24]/70 hover:text-[#E31E24] transition-colors">
+                  Forgot?
                 </Link>
               </div>
               <div className="relative">
+                <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#E31E24]/50" />
                 <Input
                   id="password"
                   type={showPass ? "text" : "password"}
                   autoComplete="current-password"
-                  className="h-11 pr-10"
+                  placeholder="Your password"
+                  className="h-11 pl-10 pr-16 bg-white border-[#E31E24]/12 text-[#1A1A1A] placeholder:text-[#666666]/60 focus-visible:ring-[#E31E24]/40 focus-visible:border-[#E31E24]/30 transition-colors"
                   {...register("password")}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPass((v) => !v)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-                  aria-label={showPass ? "Hide password" : "Show password"}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-bold tracking-widest text-[#E31E24]/60 hover:text-[#E31E24] transition-colors"
                 >
-                  {showPass ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  {showPass ? "HIDE" : "SHOW"}
                 </button>
               </div>
-              {errors.password && (
-                <p className="text-xs text-destructive">{errors.password.message}</p>
-              )}
+              {errors.password && <p className="text-xs text-destructive">{errors.password.message}</p>}
             </div>
 
+            {/* Keep signed in */}
+            <div className="flex items-center gap-2.5">
+              <Checkbox
+                id="keepSignedIn"
+                checked={keepSignedIn}
+                onCheckedChange={(v) => setKeepSignedIn(v === true)}
+                className="border-[#E31E24]/25 data-[state=checked]:bg-[#E31E24] data-[state=checked]:border-[#E31E24]"
+              />
+              <Label htmlFor="keepSignedIn" className="text-xs text-[#666666] cursor-pointer">
+                Keep me signed in
+              </Label>
+            </div>
+
+            {/* Submit */}
             <Button
               type="submit"
-              className="w-full h-11 text-base shadow-lg shadow-primary/20"
+              className="w-full h-11 text-sm font-semibold tracking-wide bg-[#E31E24] hover:bg-[#C41A1F] text-white shadow-xl shadow-[#E31E24]/20 transition-all duration-300"
               disabled={loading}
             >
               {loading ? (
                 <span className="flex items-center gap-2">
-                  <span className="h-4 w-4 animate-spin rounded-full border-2 border-primary-foreground border-t-transparent" />
+                  <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white" />
                   Signing in...
                 </span>
               ) : (
@@ -160,31 +285,39 @@ export default function LoginForm() {
             </Button>
           </form>
 
-          <div className="mt-6 text-center text-sm text-muted-foreground">
-            Don&apos;t have an account?{" "}
-            <Link href="/register" className="font-medium text-primary hover:underline">
-              Create one
+          {/* Register link */}
+          <p className="mt-6 text-center text-sm text-[#666666]">
+            New to Alumni Network?{" "}
+            <Link href="/register" className="font-semibold text-[#E31E24] hover:text-[#C41A1F] transition-colors">
+              Create account
             </Link>
-          </div>
-        </div>
+          </p>
 
-        <div className="mt-6 rounded-xl border bg-card p-4 text-xs space-y-1.5">
-          <p className="font-semibold text-foreground mb-2">Demo credentials:</p>
-          <div className="grid gap-1.5">
-            <p className="text-muted-foreground">
-              <span className="font-medium text-foreground">Admin:</span>{" "}
-              admin@alumninetwork.com / Admin@123
-            </p>
-            <p className="text-muted-foreground">
-              <span className="font-medium text-foreground">Alumni:</span>{" "}
-              vikram.singh@google.com / Alumni@123
-            </p>
-            <p className="text-muted-foreground">
-              <span className="font-medium text-foreground">Student:</span>{" "}
-              arjun.sharma@chitkara.edu.in / Student@123
-            </p>
+          {/* Quick access */}
+          <div className="mt-8 rounded-xl border border-[#E31E24]/10 bg-white p-4">
+            <p className="text-[10px] font-semibold tracking-[0.15em] uppercase text-[#666666] mb-3">Quick access credentials</p>
+            <div className="grid grid-cols-3 gap-2 text-[10px]">
+              {[
+                { role: "Admin", dot: "#E31E24", email: "admin@alumninetwork.com", pass: "Admin@123" },
+                { role: "Alumni", dot: "#1A1A1A", email: "vikram.singh@google.com", pass: "Alumni@123" },
+                { role: "Student", dot: "#666666", email: "arjun.sharma@chitkara.edu.in", pass: "Student@123" },
+              ].map((r) => (
+                <div key={r.role} className="rounded-lg border border-[#E31E24]/8 bg-white p-2 space-y-0.5">
+                  <div className="flex items-center gap-1 mb-1">
+                    <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: r.dot }} />
+                    <span className="font-bold text-[#1A1A1A]/80">{r.role}</span>
+                  </div>
+                  <p className="text-[#666666] truncate">{r.email}</p>
+                  <p className="text-[#666666]">{r.pass}</p>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+
+          <p className="mt-6 text-center text-[10px] text-[#666666]/50 tracking-wide">
+            © 2026 Alumni Network
+          </p>
+        </motion.div>
       </div>
     </div>
   );

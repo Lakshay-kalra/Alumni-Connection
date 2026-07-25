@@ -1,0 +1,28 @@
+[     816ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js:25630
+[    1005ms] [LOG] 🔌 Initializing socket connection to: http://localhost:5000 @ webpack-internal:///(app-pages-browser)/./src/providers/socket-provider.tsx:43
+[    1106ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/api/notifications:0
+[    1173ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/api/notifications:0
+[    2317ms] [ERROR] WebSocket connection to 'ws://localhost:5000/socket.io/?EIO=4&transport=websocket' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ webpack-internal:///(app-pages-browser)/./node_modules/engine.io-client/build/esm/transports/websocket.js:127
+[    2318ms] [ERROR] ❌ Socket connection error: TransportError: websocket error
+    at WS.onError (webpack-internal:///(app-pages-browser)/./node_modules/engine.io-client/build/esm/transport.js:48:37)
+    at ws.onerror (webpack-internal:///(app-pages-browser)/./node_modules/engine.io-client/build/esm/transports/websocket.js:58:39) @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/userspace/app/errors/intercept-console-error.js:56
+[    5003ms] [ERROR] WebSocket connection to 'ws://localhost:5000/socket.io/?EIO=4&transport=websocket' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ webpack-internal:///(app-pages-browser)/./node_modules/engine.io-client/build/esm/transports/websocket.js:127
+[    5003ms] [ERROR] ❌ Socket connection error: TransportError: websocket error
+    at WS.onError (webpack-internal:///(app-pages-browser)/./node_modules/engine.io-client/build/esm/transport.js:48:37)
+    at ws.onerror (webpack-internal:///(app-pages-browser)/./node_modules/engine.io-client/build/esm/transports/websocket.js:58:39) @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/userspace/app/errors/intercept-console-error.js:56
+[   10526ms] [ERROR] WebSocket connection to 'ws://localhost:5000/socket.io/?EIO=4&transport=websocket' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ webpack-internal:///(app-pages-browser)/./node_modules/engine.io-client/build/esm/transports/websocket.js:127
+[   10526ms] [ERROR] ❌ Socket connection error: TransportError: websocket error
+    at WS.onError (webpack-internal:///(app-pages-browser)/./node_modules/engine.io-client/build/esm/transport.js:48:37)
+    at ws.onerror (webpack-internal:///(app-pages-browser)/./node_modules/engine.io-client/build/esm/transports/websocket.js:58:39) @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/userspace/app/errors/intercept-console-error.js:56
+[   16857ms] [ERROR] WebSocket connection to 'ws://localhost:5000/socket.io/?EIO=4&transport=websocket' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ webpack-internal:///(app-pages-browser)/./node_modules/engine.io-client/build/esm/transports/websocket.js:127
+[   16857ms] [ERROR] ❌ Socket connection error: TransportError: websocket error
+    at WS.onError (webpack-internal:///(app-pages-browser)/./node_modules/engine.io-client/build/esm/transport.js:48:37)
+    at ws.onerror (webpack-internal:///(app-pages-browser)/./node_modules/engine.io-client/build/esm/transports/websocket.js:58:39) @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/userspace/app/errors/intercept-console-error.js:56
+[   23185ms] [ERROR] WebSocket connection to 'ws://localhost:5000/socket.io/?EIO=4&transport=websocket' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ webpack-internal:///(app-pages-browser)/./node_modules/engine.io-client/build/esm/transports/websocket.js:127
+[   23186ms] [ERROR] ❌ Socket connection error: TransportError: websocket error
+    at WS.onError (webpack-internal:///(app-pages-browser)/./node_modules/engine.io-client/build/esm/transport.js:48:37)
+    at ws.onerror (webpack-internal:///(app-pages-browser)/./node_modules/engine.io-client/build/esm/transports/websocket.js:58:39) @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/userspace/app/errors/intercept-console-error.js:56
+[   29528ms] [ERROR] WebSocket connection to 'ws://localhost:5000/socket.io/?EIO=4&transport=websocket' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ webpack-internal:///(app-pages-browser)/./node_modules/engine.io-client/build/esm/transports/websocket.js:127
+[   29528ms] [ERROR] ❌ Socket connection error: TransportError: websocket error
+    at WS.onError (webpack-internal:///(app-pages-browser)/./node_modules/engine.io-client/build/esm/transport.js:48:37)
+    at ws.onerror (webpack-internal:///(app-pages-browser)/./node_modules/engine.io-client/build/esm/transports/websocket.js:58:39) @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/userspace/app/errors/intercept-console-error.js:56

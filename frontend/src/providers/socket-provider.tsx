@@ -32,7 +32,6 @@ export function SocketProvider({ children }: { children: React.ReactNode }) {
     }
 
     const socketUrl = process.env.NEXT_PUBLIC_SOCKET_URL || "http://localhost:5000";
-    console.log(`🔌 Initializing socket connection to: ${socketUrl}`);
 
     const socketInstance = io(socketUrl, {
       auth: { token: session.accessToken },
@@ -43,23 +42,20 @@ export function SocketProvider({ children }: { children: React.ReactNode }) {
     });
 
     socketInstance.on("connect", () => {
-      console.log("⚡ Socket connected:", socketInstance.id);
       setIsConnected(true);
     });
 
     socketInstance.on("disconnect", () => {
-      console.log("🔌 Socket disconnected");
       setIsConnected(false);
     });
 
-    socketInstance.on("connect_error", (error) => {
-      console.error("❌ Socket connection error:", error);
+    socketInstance.on("connect_error", () => {
+      // ponytail: error logged server-side, no need to spam client console
     });
 
     setSocket(socketInstance);
 
     return () => {
-      console.log("🔌 Cleaning up socket connection");
       socketInstance.disconnect();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -1,4 +1,4 @@
-import { Response } from "express";
+import { Request, Response } from "express";
 import { prisma } from "../config/db";
 import { AuthenticatedRequest } from "../middleware/auth";
 import { triggerSocketEvent, triggerGlobalSocketEvent } from "../sockets/socket";
@@ -345,5 +345,30 @@ export async function verifyUser(req: AuthenticatedRequest, res: Response) {
     return verifyAlumni(req, res);
   } else {
     return res.status(400).json({ error: "Invalid type. Must be 'student' or 'alumni'" });
+  }
+}
+
+export async function getPublicStats(req: Request, res: Response) {
+  try {
+    const [
+      totalAlumni,
+      totalStudents,
+      totalEvents,
+      activeMentorships,
+    ] = await Promise.all([
+      prisma.alumniProfile.count({ where: { verificationStatus: "APPROVED" } }),
+      prisma.studentProfile.count(),
+      prisma.event.count(),
+      prisma.mentorship.count({ where: { isActive: true } }),
+    ]);
+
+    return res.json({
+      totalAlumni,
+      totalStudents,
+      totalEvents,
+      activeMentorships,
+    });
+  } catch (error: any) {
+    return res.status(500).json({ error: error.message || "Failed to retrieve public stats" });
   }
 }

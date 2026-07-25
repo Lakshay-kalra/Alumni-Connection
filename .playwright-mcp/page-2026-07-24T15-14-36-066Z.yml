@@ -1,0 +1,110 @@
+- generic [ref=f3e2]:
+  - banner [ref=f3e3]:
+    - generic [ref=f3e4]:
+      - generic [ref=f3e5]:
+        - img "Alumni Network" [ref=f3e6]
+        - generic [ref=f3e7]: Alumni Network
+      - navigation [ref=f3e8]:
+        - link "Features" [ref=f3e9] [cursor=pointer]:
+          - /url: "#features"
+        - link "How it works" [ref=f3e10] [cursor=pointer]:
+          - /url: "#how-it-works"
+        - link "Community" [ref=f3e11] [cursor=pointer]:
+          - /url: "#community"
+      - generic [ref=f3e12]:
+        - link "Sign In" [ref=f3e13] [cursor=pointer]:
+          - /url: /login
+        - link "Get Started" [ref=f3e14] [cursor=pointer]:
+          - /url: /register
+  - generic [ref=f3e20]:
+    - generic [ref=f3e21]: Join our community
+    - heading [level=1] [ref=f3e25]:
+      - text: Where graduates
+      - emphasis [ref=f3e26]: mentor
+      - text: the next generation.
+    - paragraph [ref=f3e27]: A private alumni platform built for meaningful mentorship — connect with verified graduates, attend curated events, and build a career worth having.
+    - generic [ref=f3e28]:
+      - link "Request Access" [ref=f3e29] [cursor=pointer]:
+        - /url: /register
+      - link "Sign In to Platform" [ref=f3e30] [cursor=pointer]:
+        - /url: /login
+    - generic [ref=f3e31]:
+      - generic [ref=f3e32]: "Admin: admin@alumninetwork.com / Admin@123"
+      - generic [ref=f3e35]: "Alumni: vikram.singh@google.com / Alumni@123"
+      - generic [ref=f3e38]: "Student: arjun.sharma@chitkara.edu.in / Student@123"
+  - generic [ref=f3e43]:
+    - generic [ref=f3e44]:
+      - generic [ref=f3e51]: "0"
+      - generic [ref=f3e52]: Verified Alumni
+    - generic [ref=f3e53]:
+      - generic [ref=f3e58]: "0"
+      - generic [ref=f3e59]: Active Students
+    - generic [ref=f3e60]:
+      - generic [ref=f3e65]: "0"
+      - generic [ref=f3e66]: Mentorships Active
+    - generic [ref=f3e67]:
+      - generic [ref=f3e71]: "0"
+      - generic [ref=f3e72]: Events Hosted
+  - generic [ref=f3e74]:
+    - generic [ref=f3e75]:
+      - generic [ref=f3e76]: Platform
+      - heading "Everything in one place" [level=2] [ref=f3e78]
+      - paragraph [ref=f3e79]: A purpose-built platform for meaningful alumni–student connections.
+    - generic [ref=f3e80]:
+      - generic [ref=f3e81]:
+        - generic [ref=f3e83]: Directory
+        - generic [ref=f3e84]:
+          - heading "Alumni Directory" [level=3] [ref=f3e91]
+          - paragraph [ref=f3e92]: Search and filter verified alumni by skill, industry, department, or batch year.
+      - generic [ref=f3e93]:
+        - generic [ref=f3e95]: Connect
+        - generic [ref=f3e96]:
+          - heading "Mentorship Chat" [level=3] [ref=f3e100]
+          - paragraph [ref=f3e101]: Real-time private messaging between mentors and mentees with persistent history.
+      - generic [ref=f3e102]:
+        - generic [ref=f3e104]: Events
+        - generic [ref=f3e105]:
+          - heading "Events & Meetups" [level=3] [ref=f3e109]
+          - paragraph [ref=f3e110]: Register for alumni events, career fairs, and tech talks organized by admins.
+      - generic [ref=f3e111]:
+        - generic [ref=f3e113]: Community
+        - generic [ref=f3e114]:
+          - heading "Community Hub" [level=3] [ref=f3e119]
+          - paragraph [ref=f3e120]: Admin broadcasts, alumni discussions, announcements, and college updates.
+  - generic [ref=f3e123]:
+    - generic [ref=f3e124]:
+      - generic [ref=f3e125]: Process
+      - heading "Simple by design" [level=2] [ref=f3e127]
+    - generic [ref=f3e130]:
+      - generic [ref=f3e131]:
+        - generic [ref=f3e132]: I
+        - heading "Create Your Account" [level=3] [ref=f3e134]
+        - paragraph [ref=f3e135]: Register as a student or alumni. Alumni accounts are individually verified by administrators.
+      - generic [ref=f3e136]:
+        - generic [ref=f3e137]: II
+        - heading "Find a Mentor" [level=3] [ref=f3e139]
+        - paragraph [ref=f3e140]: Browse the verified alumni directory filtered by industry, skill, or graduation year.
+      - generic [ref=f3e141]:
+        - generic [ref=f3e142]: III
+        - heading "Begin the Journey" [level=3] [ref=f3e144]
+        - paragraph [ref=f3e145]: Send a mentorship request, get accepted, and begin direct private conversations.
+  - generic [ref=f3e152]:
+    - generic [ref=f3e153]: Get started today
+    - heading "Your network awaits." [level=2] [ref=f3e155]
+    - paragraph [ref=f3e156]: Join the platform built for career-defining conversations between students and the alumni who've been there.
+    - generic [ref=f3e157]:
+      - link "Create Account" [ref=f3e158] [cursor=pointer]:
+        - /url: /register
+      - link "Sign In" [ref=f3e159] [cursor=pointer]:
+        - /url: /login
+  - contentinfo [ref=f3e160]:
+    - generic [ref=f3e161]:
+      - generic [ref=f3e162]:
+        - img "Alumni Network" [ref=f3e163]
+        - generic [ref=f3e164]: Alumni Network
+      - paragraph [ref=f3e165]: © 2026 Alumni Network. A platform for students and graduates.
+      - generic [ref=f3e166]:
+        - link "Login" [ref=f3e167] [cursor=pointer]:
+          - /url: /login
+        - link "Register" [ref=f3e168] [cursor=pointer]:
+          - /url: /register

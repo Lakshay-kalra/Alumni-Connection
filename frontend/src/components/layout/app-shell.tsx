@@ -27,7 +27,6 @@ import { useSocket } from "@/hooks/use-socket";
 import { markNotificationRead, markAllNotificationsRead } from "@/actions/platform";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import type { Notification as PrismaNotification } from "@/types/db";
 
@@ -65,9 +64,9 @@ const navItems = {
 };
 
 const roleColors = {
-  ADMIN: "bg-red-500/15 text-red-600 dark:text-red-400",
-  ALUMNI: "bg-blue-500/15 text-blue-600 dark:text-blue-400",
-  STUDENT: "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400",
+  ADMIN: "bg-[#E31E24]/12 text-[#E31E24]",
+  ALUMNI: "bg-[#1A1A1A]/10 text-[#1A1A1A]",
+  STUDENT: "bg-[#666666]/15 text-[#666666]",
 };
 
 export function AppShell({ children }: { children: React.ReactNode }) {
@@ -134,7 +133,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen bg-background">
       {/* Top header */}
-      <header className="sticky top-0 z-50 h-16 border-b bg-background/95 backdrop-blur-xl">
+      <header className="sticky top-0 z-50 h-16 border-b border-[#E31E24]/8 bg-[#FFFFFF]/90 backdrop-blur-xl">
         <div className="flex h-full items-center gap-3 px-4 lg:px-6">
           <Button
             variant="ghost"
@@ -145,9 +144,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </Button>
 
-          <Link href={items[0]?.href || "/"} className="flex items-center gap-2.5 font-bold text-primary">
-            <img src="/logo.jpeg" alt="Alumni Network Logo" className="h-8 w-auto rounded-md border" />
-            <span className="hidden sm:inline font-bold text-lg tracking-tight" style={{ fontFamily: 'Outfit, sans-serif' }}>
+          <Link href={items[0]?.href || "/"} className="flex items-center gap-2.5">
+            <img src="/logo.jpeg" alt="Alumni Network Logo" className="h-8 w-auto rounded border border-[#E31E24]/20" />
+            <span className="hidden sm:inline font-display font-semibold text-base tracking-wide text-[#1A1A1A]">
               Alumni Network
             </span>
           </Link>
@@ -237,7 +236,6 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 </>
               )}
             </div>
-            <ThemeToggle />
             <div className="hidden sm:flex items-center gap-2 pl-2 border-l ml-1">
               <Avatar className="h-8 w-8 ring-2 ring-primary/20">
                 <AvatarFallback className="bg-primary/10 text-primary font-semibold text-xs">
@@ -266,7 +264,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         {/* Sidebar */}
         <aside
           className={cn(
-            "fixed inset-y-0 left-0 z-40 w-64 transform border-r bg-background pt-16 transition-transform duration-200 ease-in-out lg:static lg:translate-x-0",
+            "fixed inset-y-0 left-0 z-40 w-64 transform border-r border-[#E31E24]/8 bg-[#F5F5F5] pt-16 transition-transform duration-200 ease-in-out lg:sticky lg:top-16 lg:h-[calc(100vh-4rem)] lg:pt-4 lg:translate-x-0",
             mobileOpen ? "translate-x-0" : "-translate-x-full"
           )}
         >
@@ -292,8 +290,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                     className={cn(
                       "group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-150",
                       active
-                        ? "bg-primary text-primary-foreground shadow-sm shadow-primary/20"
-                        : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                        ? "bg-[#E31E24]/8 text-[#E31E24] border-l-[2px] border-[#E31E24]"
+                        : "text-[#666666] hover:bg-[#E31E24]/5 hover:text-[#E31E24] border-l-[2px] border-transparent"
                     )}
                   >
                     <Icon className="h-4 w-4 shrink-0" />
@@ -305,14 +303,14 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             </nav>
 
             {/* Bottom user card */}
-            <div className="mx-3 mt-4 rounded-xl border bg-muted/50 p-3">
+            <div className="mx-3 mt-4 rounded-xl border border-[#E31E24]/10 bg-[#E31E24]/4 p-3">
               <div className="flex items-center gap-2.5">
                 <Avatar className="h-8 w-8">
-                  <AvatarFallback className="bg-primary/10 text-primary text-xs font-bold">{initials}</AvatarFallback>
+                  <AvatarFallback className="bg-[#E31E24]/10 text-[#E31E24] text-xs font-bold">{initials}</AvatarFallback>
                 </Avatar>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium leading-none truncate">{name}</p>
-                  <p className="text-xs text-muted-foreground truncate mt-0.5">{session.user.email}</p>
+                  <p className="text-sm font-medium leading-none truncate text-[#1A1A1A]">{name}</p>
+                  <p className="text-xs text-[#666666] truncate mt-0.5">{session.user.email}</p>
                 </div>
               </div>
             </div>

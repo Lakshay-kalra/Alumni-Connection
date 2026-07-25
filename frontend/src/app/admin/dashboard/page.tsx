@@ -39,12 +39,12 @@ export default async function AdminDashboard() {
   const totalPending = pendingAlumni + pendingStudents;
 
   const stats = [
-    { label: "Verified Alumni", value: totalAlumni, icon: GraduationCap, color: "text-blue-600 dark:text-blue-400", bg: "bg-blue-500/10" },
-    { label: "Total Students", value: totalStudents, icon: Users, color: "text-violet-600 dark:text-violet-400", bg: "bg-violet-500/10" },
-    { label: "Active Mentorships", value: activeMentorships, icon: MessageSquare, color: "text-emerald-600 dark:text-emerald-400", bg: "bg-emerald-500/10" },
-    { label: "Upcoming Events", value: upcomingEvents, icon: Calendar, color: "text-amber-600 dark:text-amber-400", bg: "bg-amber-500/10" },
-    { label: "Event Registrations", value: registrations, icon: UserCheck, color: "text-rose-600 dark:text-rose-400", bg: "bg-rose-500/10" },
-    { label: "Pending Verifications", value: totalPending, icon: Clock, color: "text-orange-600 dark:text-orange-400", bg: "bg-orange-500/10" },
+    { label: "Verified Alumni", value: totalAlumni, icon: GraduationCap, color: "text-[#E31E24]", bg: "bg-[#E31E24]/10" },
+    { label: "Total Students", value: totalStudents, icon: Users, color: "text-[#E31E24]", bg: "bg-[#E31E24]/10" },
+    { label: "Active Mentorships", value: activeMentorships, icon: MessageSquare, color: "text-[#E31E24]", bg: "bg-[#E31E24]/10" },
+    { label: "Upcoming Events", value: upcomingEvents, icon: Calendar, color: "text-[#E31E24]", bg: "bg-[#E31E24]/10" },
+    { label: "Event Registrations", value: registrations, icon: UserCheck, color: "text-[#E31E24]", bg: "bg-[#E31E24]/10" },
+    { label: "Pending Verifications", value: totalPending, icon: Clock, color: "text-[#F5A623]", bg: "bg-[#F5A623]/10" },
   ];
 
   return (
@@ -137,11 +137,6 @@ export default async function AdminDashboard() {
           </CardHeader>
           <CardContent className="space-y-2">
             {recentUsers.map((u: any) => {
-              const roleColors: Record<string, string> = {
-                ADMIN: "bg-red-500/10 text-red-600 dark:text-red-400",
-                ALUMNI: "bg-blue-500/10 text-blue-600 dark:text-blue-400",
-                STUDENT: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
-              };
               return (
                 <div key={u.id} className="flex items-center justify-between rounded-xl border bg-muted/20 px-4 py-2.5 gap-3">
                   <div className="min-w-0 flex-1">

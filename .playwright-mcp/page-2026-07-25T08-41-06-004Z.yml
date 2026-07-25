@@ -1,0 +1,75 @@
+- generic [active] [ref=f4e1]:
+  - generic [ref=f4e25] [cursor=pointer]:
+    - button "Open Next.js Dev Tools" [ref=f4e26]
+    - generic [ref=f4e30]:
+      - button "Open issues overlay" [ref=f4e31]:
+        - generic [ref=f4e32]:
+          - generic [ref=f4e33]: "3"
+          - generic [ref=f4e34]: "4"
+        - generic [ref=f4e35]:
+          - text: Issue
+          - generic [ref=f4e36]: s
+      - button "Collapse issues badge" [ref=f4e37]
+  - alert [ref=f4e40]
+  - generic [ref=f4e41]:
+    - banner [ref=f4e42]:
+      - generic [ref=f4e43]:
+        - link "Alumni Network Logo Alumni Network" [ref=f4e44] [cursor=pointer]:
+          - /url: /admin/dashboard
+          - img "Alumni Network Logo" [ref=f4e45]
+          - generic [ref=f4e46]: Alumni Network
+        - generic [ref=f4e47]:
+          - button [ref=f4e49] [cursor=pointer]
+          - generic [ref=f4e50]:
+            - generic [ref=f4e51]: A
+            - generic [ref=f4e53]:
+              - paragraph [ref=f4e54]: admin@alumninetwork.com
+              - paragraph [ref=f4e55]: admin
+          - button "Sign out" [ref=f4e56] [cursor=pointer]
+    - generic [ref=f4e57]:
+      - complementary [ref=f4e58]:
+        - generic [ref=f4e59]:
+          - generic [ref=f4e60]: Administrator
+          - navigation [ref=f4e63]:
+            - link "Dashboard" [ref=f4e64] [cursor=pointer]:
+              - /url: /admin/dashboard
+            - link "Student Verification" [ref=f4e71] [cursor=pointer]:
+              - /url: /admin/verification/students
+            - link "Alumni Verification" [ref=f4e77] [cursor=pointer]:
+              - /url: /admin/verification/alumni
+            - link "Import Alumni" [ref=f4e82] [cursor=pointer]:
+              - /url: /admin/import
+            - link "Alumni" [ref=f4e87] [cursor=pointer]:
+              - /url: /alumni-directory
+            - link "Events" [ref=f4e94] [cursor=pointer]:
+              - /url: /events
+            - link "Announcements" [ref=f4e98] [cursor=pointer]:
+              - /url: /announcements
+            - link "Community" [ref=f4e103] [cursor=pointer]:
+              - /url: /community
+            - link "Settings" [ref=f4e107] [cursor=pointer]:
+              - /url: /settings
+          - generic [ref=f4e115]:
+            - generic [ref=f4e116]: A
+            - generic [ref=f4e118]:
+              - paragraph [ref=f4e119]: admin@alumninetwork.com
+              - paragraph [ref=f4e120]: admin@alumninetwork.com
+      - main [ref=f4e121]:
+        - generic [ref=f4e122]:
+          - generic [ref=f4e123]:
+            - heading "Settings" [level=1] [ref=f4e124]
+            - paragraph [ref=f4e125]: Account and notification preferences
+          - generic [ref=f4e126]:
+            - heading "Account" [level=3] [ref=f4e128]
+            - generic [ref=f4e129]:
+              - paragraph [ref=f4e130]:
+                - strong [ref=f4e131]: "Email:"
+                - text: admin@alumninetwork.com
+              - paragraph [ref=f4e132]:
+                - strong [ref=f4e133]: "Role:"
+                - generic [ref=f4e134]: ADMIN
+              - link "Go to Dashboard" [ref=f4e135] [cursor=pointer]:
+                - /url: /admin/dashboard
+          - generic [ref=f4e136]:
+            - heading "Recent Notifications" [level=3] [ref=f4e138]
+            - paragraph [ref=f4e140]: No notifications.

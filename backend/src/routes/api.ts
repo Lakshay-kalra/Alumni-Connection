@@ -67,6 +67,9 @@ router.put("/notifications/read", requireAuth, notification.markAsRead);
 router.get("/community", requireAuth, community.getCommunityFeed);
 router.post("/community/message", requireAuth, community.postCommunityMessage);
 
+// Public Stats
+router.get("/public/stats", admin.getPublicStats);
+
 // Uploads
 router.post("/upload", requireAuth, upload.uploadFile);
 

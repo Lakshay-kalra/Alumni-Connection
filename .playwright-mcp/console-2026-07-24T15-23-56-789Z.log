@@ -1,0 +1,10 @@
+[     892ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js:25630
+[   64099ms] [LOG] 🔌 Initializing socket connection to: http://localhost:5000 @ webpack-internal:///(app-pages-browser)/./src/providers/socket-provider.tsx:43
+[   64114ms] [LOG] ⚡ Socket connected: mawQJFmYhE7psURSAAAB @ webpack-internal:///(app-pages-browser)/./src/providers/socket-provider.tsx:58
+[   64517ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/dev/hot-reloader/app/hot-reloader-app.js:196
+[   65424ms] [LOG] [Fast Refresh] done in 907ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/dev/report-hmr-latency.js:13
+[   66841ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/dev/hot-reloader/app/hot-reloader-app.js:196
+[   68680ms] [LOG] [Fast Refresh] done in 1839ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/dev/report-hmr-latency.js:13
+[   72392ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js:25630
+[   72748ms] [LOG] 🔌 Initializing socket connection to: http://localhost:5000 @ webpack-internal:///(app-pages-browser)/./src/providers/socket-provider.tsx:43
+[   72808ms] [LOG] ⚡ Socket connected: 7cWvyCKF_G8AlO0FAAAD @ webpack-internal:///(app-pages-browser)/./src/providers/socket-provider.tsx:58

@@ -1,0 +1,104 @@
+- generic [ref=f2e2]:
+  - generic [ref=f2e3]:
+    - generic [ref=f2e4]:
+      - heading "Admin Dashboard" [level=1] [ref=f2e5]
+      - paragraph [ref=f2e6]: Platform overview and management tools
+    - generic [ref=f2e7]: 2 pending verifications
+  - generic [ref=f2e8]:
+    - generic [ref=f2e10]:
+      - generic [ref=f2e15]: "3"
+      - paragraph [ref=f2e16]: Verified Alumni
+    - generic [ref=f2e18]:
+      - generic [ref=f2e25]: "3"
+      - paragraph [ref=f2e26]: Total Students
+    - generic [ref=f2e28]:
+      - generic [ref=f2e32]: "1"
+      - paragraph [ref=f2e33]: Active Mentorships
+    - generic [ref=f2e35]:
+      - generic [ref=f2e39]: "2"
+      - paragraph [ref=f2e40]: Upcoming Events
+    - generic [ref=f2e42]:
+      - generic [ref=f2e48]: "0"
+      - paragraph [ref=f2e49]: Event Registrations
+    - generic [ref=f2e51]:
+      - generic [ref=f2e56]: "2"
+      - paragraph [ref=f2e57]: Pending Verifications
+  - generic [ref=f2e58]:
+    - generic [ref=f2e60]:
+      - heading "User Breakdown" [level=3] [ref=f2e61]
+      - paragraph [ref=f2e63]: Total users by role
+    - generic [ref=f2e67]:
+      - heading "Mentorship Requests" [level=3] [ref=f2e68]
+      - paragraph [ref=f2e72]: 2 total requests
+    - generic [ref=f2e75]:
+      - generic [ref=f2e76]:
+        - heading "Event Participation" [level=3] [ref=f2e77]
+        - paragraph [ref=f2e80]: Total registrations across all events
+      - generic [ref=f2e81]:
+        - generic [ref=f2e85]:
+          - paragraph [ref=f2e86]: "0"
+          - paragraph [ref=f2e87]: registrations
+        - paragraph [ref=f2e88]: Alumni registered for events
+  - generic [ref=f2e89]:
+    - generic [ref=f2e90]:
+      - generic [ref=f2e91]:
+        - heading "Verification Action Center" [level=3] [ref=f2e92]
+        - paragraph [ref=f2e96]: Manage student ID and alumni LinkedIn verification queues
+      - generic [ref=f2e97]:
+        - generic [ref=f2e98]:
+          - generic [ref=f2e99]:
+            - paragraph [ref=f2e100]: Student Verification Queue
+            - paragraph [ref=f2e101]: 1 student waiting for ID approval
+          - link [ref=f2e102] [cursor=pointer]:
+            - /url: /admin/verification/students
+        - generic [ref=f2e106]:
+          - generic [ref=f2e107]:
+            - paragraph [ref=f2e108]: Alumni Verification Queue
+            - paragraph [ref=f2e109]: 1 alumni waiting for LinkedIn approval
+          - link [ref=f2e110] [cursor=pointer]:
+            - /url: /admin/verification/alumni
+    - generic [ref=f2e114]:
+      - generic [ref=f2e115]:
+        - heading "Recent Registrations" [level=3] [ref=f2e116]
+        - paragraph [ref=f2e120]: Latest users to join the platform
+      - generic [ref=f2e121]:
+        - generic [ref=f2e122]:
+          - generic [ref=f2e123]:
+            - paragraph [ref=f2e124]: Sanjay Kumar
+            - paragraph [ref=f2e125]: sanjay.kumar@tesla.com
+          - generic [ref=f2e126]: ALUMNI
+        - generic [ref=f2e128]:
+          - generic [ref=f2e129]:
+            - paragraph [ref=f2e130]: Karthik Nair
+            - paragraph [ref=f2e131]: karthik.nair@intel.com
+          - generic [ref=f2e132]: ALUMNI
+        - generic [ref=f2e134]:
+          - generic [ref=f2e135]:
+            - paragraph [ref=f2e136]: Ananya Reddy
+            - paragraph [ref=f2e137]: ananya.reddy@microsoft.com
+          - generic [ref=f2e138]: ALUMNI
+        - generic [ref=f2e140]:
+          - generic [ref=f2e141]:
+            - paragraph [ref=f2e142]: Vikram Singh
+            - paragraph [ref=f2e143]: vikram.singh@google.com
+          - generic [ref=f2e144]: ALUMNI
+        - generic [ref=f2e146]:
+          - generic [ref=f2e147]:
+            - paragraph [ref=f2e148]: Rahul Verma
+            - paragraph [ref=f2e149]: rahul.verma@gmail.com
+          - generic [ref=f2e150]: STUDENT
+        - generic [ref=f2e152]:
+          - generic [ref=f2e153]:
+            - paragraph [ref=f2e154]: Priya Patel
+            - paragraph [ref=f2e155]: priya.patel@chitkara.edu.in
+          - generic [ref=f2e156]: STUDENT
+        - generic [ref=f2e158]:
+          - generic [ref=f2e159]:
+            - paragraph [ref=f2e160]: Arjun Sharma
+            - paragraph [ref=f2e161]: arjun.sharma@chitkara.edu.in
+          - generic [ref=f2e162]: STUDENT
+        - generic [ref=f2e164]:
+          - generic [ref=f2e165]:
+            - paragraph [ref=f2e166]: admin@alumninetwork.com
+            - paragraph [ref=f2e167]: admin@alumninetwork.com
+          - generic [ref=f2e168]: ADMIN

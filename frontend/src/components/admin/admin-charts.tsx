@@ -9,7 +9,7 @@ import { BarChart2, PieChart as PieChartIcon, Calendar } from "lucide-react";
 
 import type { TooltipProps } from "recharts";
 
-const COLORS = ["#6366f1", "#10b981", "#f59e0b", "#ef4444", "#8b5cf6"];
+const COLORS = ["#E31E24", "#1A1A1A", "#F5A623", "#C41A1F", "#666666"];
 
 const roleLabels: Record<string, string> = {
   STUDENT: "Students",

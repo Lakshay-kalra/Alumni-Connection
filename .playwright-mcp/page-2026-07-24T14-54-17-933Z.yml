@@ -1,0 +1,171 @@
+- generic [active] [ref=f8e1]:
+  - button "Open Next.js Dev Tools" [ref=f8e7] [cursor=pointer]
+  - alert [ref=f8e11]
+  - generic [ref=f8e12]: "0"
+  - generic [ref=f8e13]:
+    - banner [ref=f8e14]:
+      - generic [ref=f8e15]:
+        - link "Alumni Network Logo Alumni Network" [ref=f8e16] [cursor=pointer]:
+          - /url: /admin/dashboard
+          - img "Alumni Network Logo" [ref=f8e17]
+          - generic [ref=f8e18]: Alumni Network
+        - generic [ref=f8e19]:
+          - button [ref=f8e21] [cursor=pointer]
+          - button "Toggle theme" [ref=f8e22] [cursor=pointer]
+          - generic [ref=f8e24]:
+            - generic [ref=f8e25]: A
+            - generic [ref=f8e27]:
+              - paragraph [ref=f8e28]: admin@alumninetwork.com
+              - paragraph [ref=f8e29]: admin
+          - button "Sign out" [ref=f8e30] [cursor=pointer]
+    - generic [ref=f8e31]:
+      - complementary [ref=f8e32]:
+        - generic [ref=f8e33]:
+          - generic [ref=f8e34]: Administrator
+          - navigation [ref=f8e37]:
+            - link "Dashboard" [ref=f8e38] [cursor=pointer]:
+              - /url: /admin/dashboard
+            - link "Student Verification" [ref=f8e47] [cursor=pointer]:
+              - /url: /admin/verification/students
+            - link "Alumni Verification" [ref=f8e53] [cursor=pointer]:
+              - /url: /admin/verification/alumni
+            - link "Import Alumni" [ref=f8e58] [cursor=pointer]:
+              - /url: /admin/import
+            - link "Alumni" [ref=f8e63] [cursor=pointer]:
+              - /url: /alumni-directory
+            - link "Events" [ref=f8e70] [cursor=pointer]:
+              - /url: /events
+            - link "Announcements" [ref=f8e74] [cursor=pointer]:
+              - /url: /announcements
+            - link "Community" [ref=f8e79] [cursor=pointer]:
+              - /url: /community
+            - link "Settings" [ref=f8e83] [cursor=pointer]:
+              - /url: /settings
+          - generic [ref=f8e89]:
+            - generic [ref=f8e90]: A
+            - generic [ref=f8e92]:
+              - paragraph [ref=f8e93]: admin@alumninetwork.com
+              - paragraph [ref=f8e94]: admin@alumninetwork.com
+      - main [ref=f8e95]:
+        - generic [ref=f8e96]:
+          - generic [ref=f8e97]:
+            - generic [ref=f8e98]:
+              - heading "Admin Dashboard" [level=1] [ref=f8e99]
+              - paragraph [ref=f8e100]: Platform overview and management tools
+            - generic [ref=f8e101]: 2 pending verifications
+          - generic [ref=f8e102]:
+            - generic [ref=f8e104]:
+              - generic [ref=f8e109]: "3"
+              - paragraph [ref=f8e110]: Verified Alumni
+            - generic [ref=f8e112]:
+              - generic [ref=f8e119]: "3"
+              - paragraph [ref=f8e120]: Total Students
+            - generic [ref=f8e122]:
+              - generic [ref=f8e126]: "1"
+              - paragraph [ref=f8e127]: Active Mentorships
+            - generic [ref=f8e129]:
+              - generic [ref=f8e133]: "2"
+              - paragraph [ref=f8e134]: Upcoming Events
+            - generic [ref=f8e136]:
+              - generic [ref=f8e142]: "0"
+              - paragraph [ref=f8e143]: Event Registrations
+            - generic [ref=f8e145]:
+              - generic [ref=f8e150]: "2"
+              - paragraph [ref=f8e151]: Pending Verifications
+          - generic [ref=f8e152]:
+            - generic [ref=f8e153]:
+              - generic [ref=f8e154]:
+                - heading "User Breakdown" [level=3] [ref=f8e155]
+                - paragraph [ref=f8e157]: Total users by role
+              - img [ref=f8e161]:
+                - generic [ref=f8e165]:
+                  - generic [ref=f8e166]: Students
+                  - generic [ref=f8e168]: Alumni
+                  - generic [ref=f8e170]: Admins
+                - generic [ref=f8e173]:
+                  - generic [ref=f8e174]: "0"
+                  - generic [ref=f8e176]: "1"
+                  - generic [ref=f8e178]: "2"
+                  - generic [ref=f8e180]: "3"
+                  - generic [ref=f8e182]: "4"
+            - generic [ref=f8e193]:
+              - generic [ref=f8e194]:
+                - heading "Mentorship Requests" [level=3] [ref=f8e195]
+                - paragraph [ref=f8e199]: 2 total requests
+              - list [ref=f8e211]:
+                - listitem [ref=f8e212]:
+                  - generic [ref=f8e215]: Accepted
+                - listitem [ref=f8e216]:
+                  - generic [ref=f8e219]: Pending
+            - generic [ref=f8e220]:
+              - generic [ref=f8e221]:
+                - heading "Event Participation" [level=3] [ref=f8e222]
+                - paragraph [ref=f8e225]: Total registrations across all events
+              - generic [ref=f8e226]:
+                - generic [ref=f8e230]:
+                  - paragraph [ref=f8e231]: "0"
+                  - paragraph [ref=f8e232]: registrations
+                - paragraph [ref=f8e233]: Alumni registered for events
+          - generic [ref=f8e234]:
+            - generic [ref=f8e235]:
+              - generic [ref=f8e236]:
+                - heading "Verification Action Center" [level=3] [ref=f8e237]
+                - paragraph [ref=f8e241]: Manage student ID and alumni LinkedIn verification queues
+              - generic [ref=f8e242]:
+                - generic [ref=f8e243]:
+                  - generic [ref=f8e244]:
+                    - paragraph [ref=f8e245]: Student Verification Queue
+                    - paragraph [ref=f8e246]: 1 student waiting for ID approval
+                  - link [ref=f8e247] [cursor=pointer]:
+                    - /url: /admin/verification/students
+                - generic [ref=f8e251]:
+                  - generic [ref=f8e252]:
+                    - paragraph [ref=f8e253]: Alumni Verification Queue
+                    - paragraph [ref=f8e254]: 1 alumni waiting for LinkedIn approval
+                  - link [ref=f8e255] [cursor=pointer]:
+                    - /url: /admin/verification/alumni
+            - generic [ref=f8e259]:
+              - generic [ref=f8e260]:
+                - heading "Recent Registrations" [level=3] [ref=f8e261]
+                - paragraph [ref=f8e265]: Latest users to join the platform
+              - generic [ref=f8e266]:
+                - generic [ref=f8e267]:
+                  - generic [ref=f8e268]:
+                    - paragraph [ref=f8e269]: Sanjay Kumar
+                    - paragraph [ref=f8e270]: sanjay.kumar@tesla.com
+                  - generic [ref=f8e271]: ALUMNI
+                - generic [ref=f8e273]:
+                  - generic [ref=f8e274]:
+                    - paragraph [ref=f8e275]: Karthik Nair
+                    - paragraph [ref=f8e276]: karthik.nair@intel.com
+                  - generic [ref=f8e277]: ALUMNI
+                - generic [ref=f8e279]:
+                  - generic [ref=f8e280]:
+                    - paragraph [ref=f8e281]: Ananya Reddy
+                    - paragraph [ref=f8e282]: ananya.reddy@microsoft.com
+                  - generic [ref=f8e283]: ALUMNI
+                - generic [ref=f8e285]:
+                  - generic [ref=f8e286]:
+                    - paragraph [ref=f8e287]: Vikram Singh
+                    - paragraph [ref=f8e288]: vikram.singh@google.com
+                  - generic [ref=f8e289]: ALUMNI
+                - generic [ref=f8e291]:
+                  - generic [ref=f8e292]:
+                    - paragraph [ref=f8e293]: Rahul Verma
+                    - paragraph [ref=f8e294]: rahul.verma@gmail.com
+                  - generic [ref=f8e295]: STUDENT
+                - generic [ref=f8e297]:
+                  - generic [ref=f8e298]:
+                    - paragraph [ref=f8e299]: Priya Patel
+                    - paragraph [ref=f8e300]: priya.patel@chitkara.edu.in
+                  - generic [ref=f8e301]: STUDENT
+                - generic [ref=f8e303]:
+                  - generic [ref=f8e304]:
+                    - paragraph [ref=f8e305]: Arjun Sharma
+                    - paragraph [ref=f8e306]: arjun.sharma@chitkara.edu.in
+                  - generic [ref=f8e307]: STUDENT
+                - generic [ref=f8e309]:
+                  - generic [ref=f8e310]:
+                    - paragraph [ref=f8e311]: admin@alumninetwork.com
+                    - paragraph [ref=f8e312]: admin@alumninetwork.com
+                  - generic [ref=f8e313]: ADMIN

@@ -54,3 +54,6 @@ backend/uploads/*
 .pnp
 .pnp.js
 .yarn/install-state.gz
+
+#.env.example
+.env.example

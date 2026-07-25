@@ -1,0 +1,62 @@
+- generic [ref=f1e2]:
+  - generic [ref=f1e5]:
+    - generic [ref=f1e6]:
+      - generic [ref=f1e7]: Alumni Network
+      - heading [level=1] [ref=f1e11]:
+        - text: Where careers
+        - emphasis [ref=f1e12]: take root.
+      - paragraph [ref=f1e13]: The private platform for students and alumni to connect, mentor, and grow together.
+    - generic [ref=f1e14]:
+      - generic [ref=f1e22]:
+        - paragraph [ref=f1e23]: Verified alumni profiles
+        - paragraph [ref=f1e24]: Every mentor is authenticated by admins
+      - generic [ref=f1e29]:
+        - paragraph [ref=f1e30]: Direct mentorship chat
+        - paragraph [ref=f1e31]: Real-time, private conversations
+      - generic [ref=f1e37]:
+        - paragraph [ref=f1e38]: Curated events
+        - paragraph [ref=f1e39]: Career fairs, talks, and networking
+    - generic [ref=f1e40]: Exclusive Network
+  - generic [ref=f1e45]:
+    - generic [ref=f1e46]:
+      - paragraph [ref=f1e47]: Welcome back
+      - heading "Sign in to your account" [level=2] [ref=f1e48]: Sign in toyour account
+    - generic [ref=f1e49]:
+      - generic [ref=f1e50]:
+        - text: Email address
+        - textbox "Email address" [ref=f1e55]:
+          - /placeholder: you@example.com
+      - generic [ref=f1e56]:
+        - generic [ref=f1e57]:
+          - generic [ref=f1e58]: Password
+          - link "Forgot?" [ref=f1e59] [cursor=pointer]:
+            - /url: /forgot-password
+        - generic [ref=f1e60]:
+          - textbox "Password" [ref=f1e64]:
+            - /placeholder: Your password
+          - button "SHOW" [ref=f1e65] [cursor=pointer]
+      - generic [ref=f1e66]:
+        - checkbox "Keep me signed in" [ref=f1e67] [cursor=pointer]
+        - checkbox
+        - generic [ref=f1e68] [cursor=pointer]: Keep me signed in
+      - button [ref=f1e69] [cursor=pointer]
+    - paragraph [ref=f1e71]:
+      - text: New to Alumni Network?
+      - link "Create account" [ref=f1e72] [cursor=pointer]:
+        - /url: /register
+    - generic [ref=f1e73]:
+      - paragraph [ref=f1e74]: Quick access credentials
+      - generic [ref=f1e75]:
+        - generic [ref=f1e76]:
+          - generic [ref=f1e77]: Admin
+          - paragraph [ref=f1e80]: admin@alumninetwork.com
+          - paragraph [ref=f1e81]: Admin@123
+        - generic [ref=f1e82]:
+          - generic [ref=f1e83]: Alumni
+          - paragraph [ref=f1e86]: vikram.singh@google.com
+          - paragraph [ref=f1e87]: Alumni@123
+        - generic [ref=f1e88]:
+          - generic [ref=f1e89]: Student
+          - paragraph [ref=f1e92]: arjun.sharma@chitkara.edu.in
+          - paragraph [ref=f1e93]: Student@123
+    - paragraph [ref=f1e94]: © 2026 Alumni Network
