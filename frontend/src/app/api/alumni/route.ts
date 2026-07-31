@@ -8,20 +8,21 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
+  // Auth gate preserved. Filtering + pagination are now performed at the DB
+  // layer in the backend, so this proxy just forwards the query string and
+  // decorates the returned page with matchPercentage + menteeCount.
   const { searchParams } = new URL(req.url);
-  const query = searchParams.get("query") || "";
-  const department = searchParams.get("department") || "";
-  const batch = searchParams.get("batch") || "";
-  const company = searchParams.get("company") || "";
-  const page = parseInt(searchParams.get("page") || "1");
-  const limit = 12;
-  const skip = (page - 1) * limit;
+  const backendParams = new URLSearchParams();
+  for (const key of ["query", "department", "batch", "company", "page", "limit"]) {
+    const value = searchParams.get(key);
+    if (value) backendParams.set(key, value);
+  }
 
   const apiURL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 
   try {
-    // 1. Fetch alumni directory from backend
-    const alumniRes = await fetch(`${apiURL}/api/alumni`, {
+    // 1. Fetch a single page of alumni from backend (already filtered + paginated)
+    const alumniRes = await fetch(`${apiURL}/api/alumni?${backendParams.toString()}`, {
       headers: {
         Authorization: `Bearer ${session.accessToken}`,
       },
@@ -31,9 +32,12 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: "Failed to retrieve alumni" }, { status: alumniRes.status });
     }
 
-    let list = await alumniRes.json();
+    const pageData = await alumniRes.json();
+    const page = pageData.alumni || [];
+    const total = pageData.total ?? page.length;
+    const pages = pageData.pages ?? 1;
 
-    // 2. Fetch student profile if logged in as student to compute match percentage
+    // 2. Fetch the student profile (once) to compute match percentage.
     let student: any = null;
     if (session.user.role === "STUDENT") {
       const studentRes = await fetch(`${apiURL}/api/students/profile`, {
@@ -46,38 +50,8 @@ export async function GET(req: NextRequest) {
       }
     }
 
-    // 3. Perform search filters
-    if (query) {
-      const q = query.toLowerCase();
-      list = list.filter(
-        (a: any) =>
-          a.name.toLowerCase().includes(q) ||
-          (a.company && a.company.toLowerCase().includes(q)) ||
-          (a.position && a.position.toLowerCase().includes(q)) ||
-          a.department.toLowerCase().includes(q) ||
-          (a.location && a.location.toLowerCase().includes(q))
-      );
-    }
-
-    if (department) {
-      const d = department.toLowerCase();
-      list = list.filter((a: any) => a.department.toLowerCase().includes(d));
-    }
-
-    if (batch) {
-      list = list.filter((a: any) => a.batch === batch);
-    }
-
-    if (company) {
-      const c = company.toLowerCase();
-      list = list.filter((a: any) => a.company && a.company.toLowerCase().includes(c));
-    }
-
-    const total = list.length;
-    const paginated = list.slice(skip, skip + limit);
-
     return NextResponse.json({
-      alumni: paginated.map((a: any) => ({
+      alumni: page.map((a: any) => ({
         ...a,
         menteeCount: a.currentMentorshipCount,
         matchPercentage: student
@@ -88,8 +62,8 @@ export async function GET(req: NextRequest) {
           : undefined,
       })),
       total,
-      pages: Math.ceil(total / limit),
-      page,
+      pages,
+      page: pageData.page ?? 1,
     });
   } catch (error: any) {
     console.error("Alumni route proxy error:", error);

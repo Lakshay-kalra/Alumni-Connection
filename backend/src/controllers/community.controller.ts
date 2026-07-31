@@ -7,35 +7,44 @@ import { triggerGlobalSocketEvent } from "../sockets/socket";
 
 export async function getCommunityFeed(req: AuthenticatedRequest, res: Response) {
   try {
-    const broadcasts = await prisma.adminBroadcast.findMany({
-      where: { isActive: true },
-      include: {
-        messages: {
-          include: {
-            author: {
-              select: {
-                id: true,
-                email: true,
-                role: true,
-                image: true,
-                studentProfile: { select: { name: true } },
-                alumniProfile: { select: { name: true } },
+    const page = Math.max(1, parseInt(req.query.page as string, 10) || 1);
+    const limit = Math.min(50, Math.max(1, parseInt(req.query.limit as string, 10) || 10));
+    const skip = (page - 1) * limit;
+
+    const [broadcasts, total] = await Promise.all([
+      prisma.adminBroadcast.findMany({
+        where: { isActive: true },
+        skip,
+        take: limit,
+        include: {
+          messages: {
+            include: {
+              author: {
+                select: {
+                  id: true,
+                  email: true,
+                  role: true,
+                  image: true,
+                  studentProfile: { select: { name: true } },
+                  alumniProfile: { select: { name: true } },
+                },
               },
             },
+            orderBy: { createdAt: "asc" },
           },
-          orderBy: { createdAt: "asc" },
-        },
-        author: {
-          select: {
-            id: true,
-            email: true,
-            role: true,
-            image: true,
+          author: {
+            select: {
+              id: true,
+              email: true,
+              role: true,
+              image: true,
+            },
           },
         },
-      },
-      orderBy: { createdAt: "desc" },
-    });
+        orderBy: { createdAt: "desc" },
+      }),
+      prisma.adminBroadcast.count({ where: { isActive: true } }),
+    ]);
 
     // Format output author name mapping
     const formatted = broadcasts.map((b: any) => ({
@@ -46,7 +55,7 @@ export async function getCommunityFeed(req: AuthenticatedRequest, res: Response)
       })),
     }));
 
-    return res.json(formatted);
+    return res.json({ broadcasts: formatted, total, pages: Math.ceil(total / limit), page });
   } catch (error: any) {
     return res.status(500).json({ error: error.message || "Failed to retrieve community feed" });
   }

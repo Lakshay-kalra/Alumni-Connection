@@ -83,6 +83,7 @@ model User {
 
   @@index([email])
   @@index([role])
+  @@index([createdAt])
 }
 
 model UserPresence {
@@ -303,6 +304,7 @@ model Event {
 
   @@index([date])
   @@index([createdById])
+  @@index([createdAt])
 }
 
 model EventRegistration {

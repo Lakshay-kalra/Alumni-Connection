@@ -6,20 +6,29 @@ import { sanitizeInput } from "../utils/sanitize";
 
 export async function listAnnouncements(req: AuthenticatedRequest, res: Response) {
   try {
-    const list = await prisma.announcement.findMany({
-      include: {
-        author: {
-          select: {
-            id: true,
-            email: true,
-            role: true,
-            image: true,
+    const page = Math.max(1, parseInt(req.query.page as string, 10) || 1);
+    const limit = Math.min(100, Math.max(1, parseInt(req.query.limit as string, 10) || 20));
+    const skip = (page - 1) * limit;
+
+    const [list, total] = await Promise.all([
+      prisma.announcement.findMany({
+        skip,
+        take: limit,
+        include: {
+          author: {
+            select: {
+              id: true,
+              email: true,
+              role: true,
+              image: true,
+            },
           },
         },
-      },
-      orderBy: { createdAt: "desc" },
-    });
-    return res.json(list);
+        orderBy: { createdAt: "desc" },
+      }),
+      prisma.announcement.count(),
+    ]);
+    return res.json({ announcements: list, total, pages: Math.ceil(total / limit), page });
   } catch (error: any) {
     return res.status(500).json({ error: error.message || "Failed to retrieve announcements" });
   }

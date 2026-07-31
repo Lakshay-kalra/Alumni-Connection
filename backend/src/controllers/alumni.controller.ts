@@ -6,27 +6,76 @@ import { sanitizeInput, parseCommaList } from "../utils/sanitize";
 
 export async function listAlumni(req: Request, res: Response) {
   try {
-    const list = await prisma.alumniProfile.findMany({
-      where: { verificationStatus: "APPROVED" },
-      include: {
-        user: {
-          select: {
-            id: true,
-            email: true,
-            image: true,
-            presence: true,
+    // All filtering + pagination is pushed into the database so we never
+    // load the entire directory into memory. Auth still runs upstream
+    // (requireAuth on the route); this only changes data fetching.
+    const {
+      query,
+      department,
+      batch,
+      company,
+      page: pageStr,
+      limit: limitStr,
+    } = req.query as Record<string, string | undefined>;
+
+    const page = Math.max(1, parseInt(pageStr || "1", 10) || 1);
+    // Cap the page size so a caller can't pull the whole table in one shot.
+    const limit = Math.min(
+      200,
+      Math.max(1, parseInt(limitStr || "12", 10) || 12)
+    );
+    const skip = (page - 1) * limit;
+
+    // Build the DB where-clause. Free-text `query` searches across name,
+    // company, position, department and location (case-insensitive contains).
+    const where: any = { verificationStatus: "APPROVED" };
+
+    if (query) {
+      const q = query.toLowerCase();
+      where.OR = [
+        { name: { contains: q, mode: "insensitive" } },
+        { company: { contains: q, mode: "insensitive" } },
+        { position: { contains: q, mode: "insensitive" } },
+        { department: { contains: q, mode: "insensitive" } },
+        { location: { contains: q, mode: "insensitive" } },
+      ];
+    }
+    if (department) {
+      where.department = { contains: department.toLowerCase(), mode: "insensitive" };
+    }
+    if (batch) {
+      where.batch = batch;
+    }
+    if (company) {
+      where.company = { contains: company.toLowerCase(), mode: "insensitive" };
+    }
+
+    const [list, total] = await Promise.all([
+      prisma.alumniProfile.findMany({
+        where,
+        skip,
+        take: limit,
+        include: {
+          user: {
+            select: {
+              id: true,
+              email: true,
+              image: true,
+              presence: true,
+            },
+          },
+          _count: {
+            select: { mentorships: { where: { isActive: true } } },
           },
         },
-        mentorships: {
-          where: { isActive: true },
-        },
-      },
-    });
+        orderBy: { name: "asc" },
+      }),
+      prisma.alumniProfile.count({ where }),
+    ]);
 
-    // Format output to match client requirements
     const formatted = list.map((a: any) => ({
       ...a,
-      currentMentorshipCount: a.mentorships.length,
+      currentMentorshipCount: a._count.mentorships,
       user: {
         ...a.user,
         isOnline: a.user.presence?.isOnline || false,
@@ -34,7 +83,12 @@ export async function listAlumni(req: Request, res: Response) {
       },
     }));
 
-    return res.json(formatted);
+    return res.json({
+      alumni: formatted,
+      total,
+      pages: Math.ceil(total / limit),
+      page,
+    });
   } catch (error: any) {
     return res.status(500).json({ error: error.message || "Failed to retrieve alumni directory" });
   }

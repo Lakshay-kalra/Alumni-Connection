@@ -102,7 +102,8 @@ export async function sendMessage(formData: FormData): Promise<ActionResult> {
 
   if (!res.success) return { success: false, error: res.error };
 
-  revalidatePath("/chat");
+  // No revalidatePath: chat messages are delivered live via Socket.IO
+  // (new-message event), and the chat client updates its own query cache.
   return { success: true, message: "Message sent" };
 }
 
@@ -137,7 +138,8 @@ export async function postCommunityMessage(formData: FormData): Promise<ActionRe
 
   if (!res.success) return { success: false, error: res.error };
 
-  revalidatePath("/community");
+  // No revalidatePath: the community feed updates live via Socket.IO
+  // (new-message event broadcast to all clients).
   return { success: true, message: "Posted successfully" };
 }
 

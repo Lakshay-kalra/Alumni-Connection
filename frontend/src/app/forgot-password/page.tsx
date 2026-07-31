@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { Mail, ArrowLeft } from "lucide-react";
 import { forgotPassword } from "@/actions/auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -32,22 +33,38 @@ export default function ForgotPasswordPage() {
           <CardTitle>Forgot Password</CardTitle>
           <CardDescription>Enter your email to receive a reset link</CardDescription>
         </CardHeader>
-        <form onSubmit={handleSubmit}>
-          <CardContent className="space-y-4">
-            {message && <p className="text-sm text-green-600">{message}</p>}
-            {error && <p className="text-sm text-destructive">{error}</p>}
-            <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
-              <Input id="email" name="email" type="email" required />
+        {message ? (
+          <CardContent className="space-y-4 text-center">
+            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
+              <Mail className="h-6 w-6 text-green-600" />
             </div>
+            <p className="text-sm text-green-700">{message}</p>
+            <Link href="/login" className="block text-sm text-primary hover:underline">
+              Back to login
+            </Link>
           </CardContent>
-          <CardFooter className="flex flex-col gap-4">
-            <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? "Sending..." : "Send Reset Link"}
-            </Button>
-            <Link href="/login" className="text-sm text-primary hover:underline">Back to login</Link>
-          </CardFooter>
-        </form>
+        ) : (
+          <form onSubmit={handleSubmit}>
+            <CardContent className="space-y-4">
+              {error && <p className="text-sm text-destructive">{error}</p>}
+              <div className="space-y-2">
+                <Label htmlFor="email">Email</Label>
+                <Input id="email" name="email" type="email" required />
+              </div>
+            </CardContent>
+            <CardFooter className="flex flex-col gap-4">
+              <Button type="submit" className="w-full" disabled={loading}>
+                {loading ? "Sending..." : "Send Reset Link"}
+              </Button>
+              <Link
+                href="/login"
+                className="inline-flex items-center gap-1.5 text-sm text-primary hover:underline"
+              >
+                <ArrowLeft className="h-3.5 w-3.5" /> Back to login
+              </Link>
+            </CardFooter>
+          </form>
+        )}
       </Card>
     </div>
   );

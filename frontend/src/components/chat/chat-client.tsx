@@ -69,7 +69,9 @@ export function ChatClient({
     queryKey: ["messages", activeId],
     queryFn: () => fetchMessages(activeId),
     enabled: !!activeId,
-    refetchInterval: 5000, // poll every 5s as fallback
+    // No refetch interval: Socket.IO already pushes new-message events live,
+    // so a 5s poll would duplicate every request. Revalidate on reconnect only.
+    refetchOnReconnect: true,
   });
 
   useEffect(() => {

@@ -1,0 +1,94 @@
+- generic [ref=e2]:
+  - navigation [ref=e3]:
+    - img "Alumni Network logo" [ref=e4] [cursor=pointer]
+    - generic [ref=e5]:
+      - button "Home" [ref=e6] [cursor=pointer]
+      - button "Our Story" [ref=e7] [cursor=pointer]
+      - button "Community" [ref=e8] [cursor=pointer]
+      - button "Spotlight" [ref=e9] [cursor=pointer]
+      - button "Events" [ref=e10] [cursor=pointer]
+      - button "Reconnect →" [ref=e11] [cursor=pointer]
+  - generic [ref=e12]:
+    - generic [ref=e17]:
+      - paragraph [ref=e18]: CHITKARA HAPPINESS CENTER
+      - heading "ALUMNI NETWORK" [level=1] [ref=e19]
+      - paragraph [ref=e20]: Connected by memories,growing through journeys.
+      - button "Reconnect →" [ref=e21] [cursor=pointer]
+    - paragraph [ref=e25]: SCROLL
+  - generic [ref=e27]:
+    - generic [ref=e28]:
+      - paragraph [ref=e29]: Our Story
+      - heading "More Than a Place, It's a Feeling." [level=2] [ref=e30]: More Than a Place,It's a Feeling.
+      - paragraph [ref=e31]: The Happiness Center was never just a place—it was a feeling. A space where we learned, laughed, and supported each other.
+      - generic [ref=e32]:
+        - button "Join the Network" [ref=e33] [cursor=pointer]
+        - button "Hear Alumni Voices" [ref=e34] [cursor=pointer]
+    - generic [ref=e35]:
+      - generic [ref=e36]: “
+      - paragraph [ref=e37]: We believe every goodbye on campus is really a "see you later" — this network keeps that promise alive.
+      - generic [ref=e38]: ”
+  - generic [ref=e39]:
+    - paragraph [ref=e40]: Stay Connected
+    - heading "Your Network, Your Way" [level=2] [ref=e41]
+    - generic [ref=e42]:
+      - generic [ref=e43]:
+        - heading "Share Your Journey" [level=3] [ref=e51]
+        - paragraph [ref=e52]: Build meaningful connections beyond campus.
+      - generic [ref=e53]:
+        - heading "Host Sessions" [level=3] [ref=e58]
+        - paragraph [ref=e59]: Build meaningful connections beyond campus.
+      - generic [ref=e60]:
+        - heading "Mentor & Grow" [level=3] [ref=e65]
+        - paragraph [ref=e66]: Build meaningful connections beyond campus.
+      - generic [ref=e67]:
+        - heading "Revive the Bond" [level=3] [ref=e71]
+        - paragraph [ref=e72]: Build meaningful connections beyond campus.
+  - generic [ref=e74]:
+    - generic [ref=e75]:
+      - generic [ref=e76]: “
+      - paragraph [ref=e77]: Happiness Center gave me the confidence to dream bigger.
+      - generic [ref=e78]: ”
+      - paragraph [ref=e79]: Muskaan Arora
+      - paragraph [ref=e80]: Batch of 2022
+    - generic [ref=e83]:
+      - generic [ref=e84]: MA
+      - paragraph [ref=e85]: Alumni Spotlight
+      - paragraph [ref=e86]: From campus volunteer to product leader — the Happiness Center community cheered her on at every step.
+  - generic [ref=e87]:
+    - paragraph [ref=e88]: Voices of Happiness
+    - heading "What Our Alumni Say" [level=2] [ref=e89]
+    - generic [ref=e90]:
+      - generic [ref=e91]:
+        - generic [ref=e92]: “
+        - paragraph [ref=e93]: This network keeps me connected wherever I am.
+        - generic [ref=e94]: ”
+        - paragraph [ref=e95]: Alumni Name
+        - paragraph [ref=e96]: Batch
+      - generic [ref=e97]:
+        - button "Previous testimonial" [ref=e98] [cursor=pointer]: ←
+        - button "Next testimonial" [ref=e99] [cursor=pointer]: →
+      - generic [ref=e100]:
+        - button "Go to testimonial 1" [ref=e101] [cursor=pointer]
+        - button "Go to testimonial 2" [ref=e102] [cursor=pointer]
+        - button "Go to testimonial 3" [ref=e103] [cursor=pointer]
+  - generic [ref=e107]:
+    - heading "Be Part of the Journey" [level=2] [ref=e108]
+    - paragraph [ref=e109]: Stay connected with the Happiness Center, wherever life takes you.
+    - generic [ref=e110]:
+      - link "Reconnect →" [ref=e111] [cursor=pointer]:
+        - /url: /register
+      - link "Sign In" [ref=e112] [cursor=pointer]:
+        - /url: /login
+  - contentinfo [ref=e113]:
+    - generic [ref=e114]:
+      - generic [ref=e115]:
+        - img "Alumni Network logo" [ref=e116]
+        - generic [ref=e117]: Alumni Network
+      - generic [ref=e118]:
+        - button "Home" [ref=e119] [cursor=pointer]
+        - button "Our Story" [ref=e120] [cursor=pointer]
+        - link "Sign In" [ref=e121] [cursor=pointer]:
+          - /url: /login
+        - link "Register" [ref=e122] [cursor=pointer]:
+          - /url: /register
+      - paragraph [ref=e123]: © 2026 Alumni Network · Chitkara Happiness Center

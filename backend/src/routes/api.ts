@@ -18,6 +18,8 @@ const router = Router();
 router.post("/auth/register", auth.register);
 router.post("/auth/login", auth.login);
 router.post("/auth/logout", auth.logout);
+router.post("/auth/forgot-password", auth.forgotPassword);
+router.post("/auth/reset-password", auth.resetPassword);
 router.get("/auth/me", requireAuth, auth.me);
 router.get("/auth/verify-email", auth.verifyEmailToken);
 

@@ -3,8 +3,9 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import crypto from "crypto";
 import { prisma } from "../config/db";
-import { registerSchema, loginSchema } from "../utils/validations";
+import { registerSchema, loginSchema, forgotPasswordSchema, resetPasswordSchema } from "../utils/validations";
 import { sanitizeInput, parseCommaList } from "../utils/sanitize";
+import { sendPasswordResetEmail, sendVerificationEmail } from "../utils/email";
 import { AuthenticatedRequest } from "../middleware/auth";
 
 export async function register(req: Request, res: Response) {
@@ -86,10 +87,13 @@ export async function register(req: Request, res: Response) {
       },
     });
 
-    if (role === "STUDENT" && email.toLowerCase().endsWith("@chitkara.edu.in")) {
+    const frontendUrl = process.env.CLIENT_URL || "http://localhost:3000";
+    await sendVerificationEmail(email, `${frontendUrl}/verify-email?token=${verificationToken}`);
+
+    if (role === "STUDENT") {
       return res.json({
         success: true,
-        message: `Account created successfully! Please verify your official email. [TEST LINK: Click here to verify](/verify-email?token=${verificationToken})`,
+        message: "Account created successfully! A verification link has been sent to your email. Please verify your email to activate your account.",
       });
     }
 
@@ -157,6 +161,72 @@ export async function login(req: Request, res: Response) {
     });
   } catch (error: any) {
     return res.status(500).json({ error: error.message || "Login failed" });
+  }
+}
+
+export async function forgotPassword(req: Request, res: Response) {
+  const parsed = forgotPasswordSchema.safeParse(req.body);
+  if (!parsed.success) {
+    return res.status(400).json({ error: "Invalid email address" });
+  }
+
+  const email = parsed.data.email.toLowerCase();
+
+  try {
+    const user = await prisma.user.findUnique({ where: { email } });
+    if (user) {
+      const token = crypto.randomBytes(32).toString("hex");
+      await prisma.passwordResetToken.create({
+        data: {
+          email,
+          token,
+          expires: new Date(Date.now() + 60 * 60 * 1000), // 1 hour
+        },
+      });
+
+      const frontendUrl = process.env.CLIENT_URL || "http://localhost:3000";
+      await sendPasswordResetEmail(email, `${frontendUrl}/reset-password?token=${token}`);
+    }
+
+    // Always respond identically to avoid leaking which emails have accounts.
+    return res.json({
+      success: true,
+      message: "If an account exists for that email, a password reset link has been sent.",
+    });
+  } catch (error: any) {
+    return res.status(500).json({ error: error.message || "Failed to send reset email" });
+  }
+}
+
+export async function resetPassword(req: Request, res: Response) {
+  const parsed = resetPasswordSchema.safeParse(req.body);
+  if (!parsed.success) {
+    return res.status(400).json({ error: parsed.error.errors[0]?.message || "Invalid input" });
+  }
+
+  const { token, password } = parsed.data;
+
+  try {
+    const resetToken = await prisma.passwordResetToken.findUnique({ where: { token } });
+    if (!resetToken || resetToken.expires < new Date()) {
+      return res.status(400).json({ error: "Invalid or expired reset link. Please request a new one." });
+    }
+
+    const passwordHash = await bcrypt.hash(password, 12);
+    await prisma.user.update({
+      where: { email: resetToken.email },
+      data: { passwordHash },
+    });
+
+    // One-time use: invalidate all outstanding tokens for this account.
+    await prisma.passwordResetToken.deleteMany({ where: { email: resetToken.email } });
+
+    return res.json({
+      success: true,
+      message: "Password updated successfully. You can now sign in.",
+    });
+  } catch (error: any) {
+    return res.status(500).json({ error: error.message || "Failed to reset password" });
   }
 }
 

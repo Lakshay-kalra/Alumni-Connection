@@ -6,12 +6,21 @@ import { sanitizeInput } from "../utils/sanitize";
 
 export async function listEvents(req: AuthenticatedRequest, res: Response) {
   try {
-    const list = await prisma.event.findMany({
-      include: {
-        registrations: true,
-      },
-      orderBy: { date: "asc" },
-    });
+    const page = Math.max(1, parseInt(req.query.page as string, 10) || 1);
+    const limit = Math.min(100, Math.max(1, parseInt(req.query.limit as string, 10) || 20));
+    const skip = (page - 1) * limit;
+
+    const [list, total] = await Promise.all([
+      prisma.event.findMany({
+        skip,
+        take: limit,
+        include: {
+          registrations: true,
+        },
+        orderBy: { date: "asc" },
+      }),
+      prisma.event.count(),
+    ]);
 
     const userId = req.user?.id;
     const formatted = list.map((e: any) => ({
@@ -20,7 +29,7 @@ export async function listEvents(req: AuthenticatedRequest, res: Response) {
       registrationCount: e.registrations.length,
     }));
 
-    return res.json(formatted);
+    return res.json({ events: formatted, total, pages: Math.ceil(total / limit), page });
   } catch (error: any) {
     return res.status(500).json({ error: error.message || "Failed to retrieve events" });
   }

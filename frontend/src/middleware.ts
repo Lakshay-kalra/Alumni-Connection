@@ -2,7 +2,7 @@ import { auth } from "@/auth";
 import { canAccessRoute, getDashboardPath } from "@/lib/auth-utils";
 import { NextResponse } from "next/server";
 
-const publicRoutes = ["/", "/login", "/register", "/forgot-password"];
+const publicRoutes = ["/", "/login", "/register", "/forgot-password", "/reset-password", "/verify-email"];
 const authRoutes = ["/login", "/register", "/forgot-password"];
 
 export default auth((req) => {

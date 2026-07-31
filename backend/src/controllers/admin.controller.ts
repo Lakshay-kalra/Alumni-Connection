@@ -73,19 +73,37 @@ export async function listUsers(req: AuthenticatedRequest, res: Response) {
   }
 
   try {
-    const students = await prisma.studentProfile.findMany({
-      include: {
-        user: { select: { id: true, email: true } },
-      },
-    });
+    const page = Math.max(1, parseInt(req.query.page as string, 10) || 1);
+    const limit = Math.min(100, Math.max(1, parseInt(req.query.limit as string, 10) || 20));
+    const skip = (page - 1) * limit;
+
+    const [students, studentTotal] = await Promise.all([
+      prisma.studentProfile.findMany({
+        skip,
+        take: limit,
+        include: {
+          user: { select: { id: true, email: true } },
+        },
+      }),
+      prisma.studentProfile.count(),
+    ]);
 
     const alumni = await prisma.alumniProfile.findMany({
+      skip,
+      take: limit,
       include: {
         user: { select: { id: true, email: true } },
       },
     });
+    const alumniTotal = await prisma.alumniProfile.count();
 
-    return res.json({ students, alumni });
+    return res.json({
+      students,
+      alumni,
+      total: studentTotal + alumniTotal,
+      pages: Math.max(Math.ceil(studentTotal / limit), Math.ceil(alumniTotal / limit)),
+      page,
+    });
   } catch (error: any) {
     return res.status(500).json({ error: error.message || "Failed to retrieve user lists" });
   }
