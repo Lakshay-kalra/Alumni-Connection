@@ -7,8 +7,8 @@ export default async function CommunityPage() {
   await requireAuth();
   const session = await auth();
 
-  const res = await apiFetch<any[]>("/api/community");
-  const rawBroadcasts = res.data || [];
+  const res = await apiFetch<{ broadcasts: any[] }>("/api/community");
+  const rawBroadcasts = res.data?.broadcasts || [];
 
   // Format and reconstruct parent-child reply threads from flat API results
   const broadcasts = rawBroadcasts.map((b) => {

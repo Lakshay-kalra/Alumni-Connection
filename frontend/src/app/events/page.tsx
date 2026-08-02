@@ -7,8 +7,8 @@ export default async function EventsPage() {
   await requireAuth();
   const session = await auth();
 
-  const res = await apiFetch<any[]>("/api/events");
-  const events = res.data || [];
+  const res = await apiFetch<{ events: any[] }>("/api/events");
+  const events = res.data?.events || [];
 
   return (
     <div className="space-y-6">

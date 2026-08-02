@@ -7,8 +7,8 @@ export default async function AnnouncementsPage() {
   await requireAuth();
   const session = await auth();
 
-  const res = await apiFetch<any[]>("/api/announcements");
-  const announcements = res.data || [];
+  const res = await apiFetch<{ announcements: any[] }>("/api/announcements");
+  const announcements = res.data?.announcements || [];
 
   return (
     <div className="space-y-6">
