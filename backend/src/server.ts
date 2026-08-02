@@ -8,7 +8,7 @@ import { initSocketServer } from "./sockets/socket";
 dotenv.config();
 
 const port = process.env.PORT || 5000;
-const clientUrl = process.env.CLIENT_URL || "http://localhost:3000";
+const clientUrl = (process.env.CLIENT_URL || "http://localhost:3000").replace(/\/+$/, "");
 
 const server = http.createServer(app);
 

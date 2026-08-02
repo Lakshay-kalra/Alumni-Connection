@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { io, Socket } from "socket.io-client";
 import { useSession } from "next-auth/react";
+import { SOCKET_BASE } from "@/lib/env";
 
 interface SocketContextType {
   socket: Socket | null;
@@ -31,9 +32,7 @@ export function SocketProvider({ children }: { children: React.ReactNode }) {
       return;
     }
 
-    const socketUrl = process.env.NEXT_PUBLIC_SOCKET_URL || "http://localhost:5000";
-
-    const socketInstance = io(socketUrl, {
+    const socketInstance = io(SOCKET_BASE, {
       auth: { token: session.accessToken },
       withCredentials: true,
       transports: ["websocket", "polling"],

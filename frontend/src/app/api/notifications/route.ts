@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
+import { API_BASE } from "@/lib/env";
 
 export async function GET() {
   const session = await auth();
@@ -7,7 +8,7 @@ export async function GET() {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const apiURL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+  const apiURL = API_BASE;
 
   try {
     const res = await fetch(`${apiURL}/api/notifications`, {

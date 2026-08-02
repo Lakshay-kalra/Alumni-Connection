@@ -1,6 +1,5 @@
 import { auth } from "@/auth";
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+import { API_BASE as API_URL } from "@/lib/env";
 
 export async function apiFetch<T = any>(
   path: string,

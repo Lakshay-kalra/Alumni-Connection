@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/auth";
+import { API_BASE } from "@/lib/env";
 
 export async function POST(req: NextRequest) {
   try {
@@ -18,7 +19,7 @@ export async function POST(req: NextRequest) {
     const buffer = Buffer.from(bytes);
     const base64 = buffer.toString("base64");
 
-    const apiURL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+    const apiURL = API_BASE;
     const res = await fetch(`${apiURL}/api/upload`, {
       method: "POST",
       headers: {

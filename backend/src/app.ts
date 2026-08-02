@@ -7,7 +7,8 @@ import apiRoutes from "./routes/api";
 const app = express();
 
 // Configure CORS to allow credentials from the Next.js client origin only
-const clientUrl = process.env.CLIENT_URL || "http://localhost:3000";
+// (trailing slash stripped: browsers never send one in the Origin header)
+const clientUrl = (process.env.CLIENT_URL || "http://localhost:3000").replace(/\/+$/, "");
 app.use(
   cors({
     origin: clientUrl,

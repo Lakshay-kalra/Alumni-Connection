@@ -1,3 +1,5 @@
+import { API_BASE as API_URL } from "@/lib/env";
+
 export type UserRole = "STUDENT" | "ALUMNI" | "ADMIN";
 
 export type BackendUser = {
@@ -11,8 +13,6 @@ export type BackendUser = {
 export type BackendLoginResult =
   | { ok: true; user: BackendUser; token: string }
   | { ok: false; error: string };
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 
 export async function loginWithBackend(
   email: string,
