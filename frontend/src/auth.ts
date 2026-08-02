@@ -1,5 +1,6 @@
 import NextAuth, { CredentialsSignin } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
+import { JWT } from "next-auth/jwt";
 import { loginSchema } from "@/lib/validations";
 import { loginWithBackend, type UserRole } from "@/lib/backend-auth";
 
