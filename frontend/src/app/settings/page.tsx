@@ -31,7 +31,7 @@ export default async function SettingsPage() {
         <CardHeader><CardTitle>Account</CardTitle></CardHeader>
         <CardContent className="space-y-2">
           <p><strong>Email:</strong> {session?.user?.email}</p>
-          <p><strong>Role:</strong> <Badge>{user.role}</Badge></p>
+          <div className="text-sm"><strong>Role:</strong> <Badge className="ml-1 inline-flex">{user.role}</Badge></div>
           {profile && "name" in profile && <p><strong>Name:</strong> {profile.name}</p>}
           <Button variant="outline" asChild>
             <Link href={getDashboardPath(user.role)}>Go to Dashboard</Link>
