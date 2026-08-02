@@ -28,6 +28,7 @@ import { markNotificationRead, markAllNotificationsRead } from "@/actions/platfo
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { ThemeToggle } from "@/components/theme-toggle";
 import type { Notification as PrismaNotification } from "@/types/db";
 
 const navItems = {
@@ -65,8 +66,8 @@ const navItems = {
 
 const roleColors = {
   ADMIN: "bg-[#E31E24]/12 text-[#E31E24]",
-  ALUMNI: "bg-[#1A1A1A]/10 text-[#1A1A1A]",
-  STUDENT: "bg-[#666666]/15 text-[#666666]",
+  ALUMNI: "bg-[#1A1A1A]/10 text-[#1A1A1A] dark:bg-white/10 dark:text-white",
+  STUDENT: "bg-[#666666]/15 text-[#666666] dark:bg-white/10 dark:text-[#A1A1A6]",
 };
 
 export function AppShell({ children }: { children: React.ReactNode }) {
@@ -133,7 +134,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen bg-background">
       {/* Top header */}
-      <header className="sticky top-0 z-50 h-16 border-b border-[#E31E24]/8 bg-[#FFFFFF]/90 backdrop-blur-xl">
+      <header className="sticky top-0 z-50 h-16 border-b border-[#E31E24]/8 bg-[#FFFFFF]/90 backdrop-blur-xl dark:bg-[#141416]/90">
         <div className="flex h-full items-center gap-3 px-4 lg:px-6">
           <Button
             variant="ghost"
@@ -146,12 +147,15 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
           <Link href={items[0]?.href || "/"} className="flex items-center gap-2.5">
             <img src="/logo.jpeg" alt="Alumni Network Logo" className="h-8 w-auto rounded border border-[#E31E24]/20" />
-            <span className="hidden sm:inline font-display font-semibold text-base tracking-wide text-[#1A1A1A]">
+            <span className="hidden sm:inline font-display font-semibold text-base tracking-wide text-[#1A1A1A] dark:text-[#F2F2F2]">
               Alumni Network
             </span>
           </Link>
 
           <div className="ml-auto flex items-center gap-2">
+            {/* Dark mode toggle */}
+            <ThemeToggle />
+
             {/* Notifications Dropdown */}
             <div className="relative">
               <Button
@@ -264,7 +268,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         {/* Sidebar */}
         <aside
           className={cn(
-            "fixed inset-y-0 left-0 z-40 w-64 transform border-r border-[#E31E24]/8 bg-[#F5F5F5] pt-16 transition-transform duration-200 ease-in-out lg:sticky lg:top-16 lg:h-[calc(100vh-4rem)] lg:pt-4 lg:translate-x-0",
+            "fixed inset-y-0 left-0 z-40 w-64 transform border-r border-[#E31E24]/8 bg-[#F5F5F5] pt-16 transition-transform duration-200 ease-in-out lg:sticky lg:top-16 lg:h-[calc(100vh-4rem)] lg:pt-4 lg:translate-x-0 dark:bg-[#101012]",
             mobileOpen ? "translate-x-0" : "-translate-x-full"
           )}
         >
@@ -291,7 +295,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                       "group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-150",
                       active
                         ? "bg-[#E31E24]/8 text-[#E31E24] border-l-[2px] border-[#E31E24]"
-                        : "text-[#666666] hover:bg-[#E31E24]/5 hover:text-[#E31E24] border-l-[2px] border-transparent"
+                        : "text-[#666666] hover:bg-[#E31E24]/5 hover:text-[#E31E24] border-l-[2px] border-transparent dark:text-[#A1A1A6]"
                     )}
                   >
                     <Icon className="h-4 w-4 shrink-0" />
@@ -309,8 +313,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                   <AvatarFallback className="bg-[#E31E24]/10 text-[#E31E24] text-xs font-bold">{initials}</AvatarFallback>
                 </Avatar>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium leading-none truncate text-[#1A1A1A]">{name}</p>
-                  <p className="text-xs text-[#666666] truncate mt-0.5">{session.user.email}</p>
+                  <p className="text-sm font-medium leading-none truncate text-[#1A1A1A] dark:text-[#F2F2F2]">{name}</p>
+                  <p className="text-xs text-[#666666] truncate mt-0.5 dark:text-[#A1A1A6]">{session.user.email}</p>
                 </div>
               </div>
             </div>

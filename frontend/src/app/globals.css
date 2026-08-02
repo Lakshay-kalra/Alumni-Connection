@@ -35,6 +35,29 @@
     --light-gray: #F5F5F5;
     --white: #FFFFFF;
   }
+
+  .dark {
+    /* Dark mode — charcoal base, brand red/gold accents preserved */
+    --background: 0 0% 8%;             /* #141416 */
+    --foreground: 0 0% 95%;            /* #F2F2F2 */
+    --card: 0 0% 11%;                  /* #1C1C1F */
+    --card-foreground: 0 0% 95%;
+    --popover: 0 0% 11%;
+    --popover-foreground: 0 0% 95%;
+    --primary: 356 82% 52%;            /* #E31E24 */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 16%;             /* #29292D */
+    --secondary-foreground: 0 0% 95%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 63%;      /* #A1A1A6 */
+    --accent: 36 88% 65%;              /* #F5A623 */
+    --accent-foreground: 0 0% 10%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 18%;                /* #2E2E33 */
+    --input: 0 0% 18%;
+    --ring: 356 82% 52%;
+  }
 }
 
 @layer base {
@@ -104,6 +127,22 @@
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
     border: 1px solid rgba(0, 0, 0, 0.06);
+  }
+
+  /* Dark-mode glass overrides */
+  .dark .glass {
+    background: rgba(20, 20, 22, 0.8);
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+
+  .dark .glass-red {
+    background: rgba(227, 30, 36, 0.08);
+    border-color: rgba(227, 30, 36, 0.22);
+  }
+
+  .dark .glass-dark {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.08);
   }
 
   /* Glow effects */

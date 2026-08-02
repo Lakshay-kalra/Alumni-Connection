@@ -20,10 +20,10 @@ const testimonials = [
 ];
 
 const features = [
-  { icon: Share2, t: "Share Your Journey", c: "bg-red-50 text-[#E31E24]" },
-  { icon: Mic, t: "Host Sessions", c: "bg-yellow-100 text-[#F5A623]" },
-  { icon: GraduationCap, t: "Mentor & Grow", c: "bg-green-100 text-green-600" },
-  { icon: Heart, t: "Revive the Bond", c: "bg-purple-100 text-purple-600" },
+  { icon: Share2, t: "Share Your Journey", c: "bg-red-50 text-[#E31E24] dark:bg-red-500/10" },
+  { icon: Mic, t: "Host Sessions", c: "bg-yellow-100 text-[#F5A623] dark:bg-yellow-500/10" },
+  { icon: GraduationCap, t: "Mentor & Grow", c: "bg-green-100 text-green-600 dark:bg-green-500/10" },
+  { icon: Heart, t: "Revive the Bond", c: "bg-purple-100 text-purple-600 dark:bg-purple-500/10" },
 ];
 
 function scrollToSection(id: string) {
@@ -126,31 +126,31 @@ function TestimonialCarousel() {
 
   return (
     <div className="max-w-3xl mx-auto relative">
-      <div className="bg-white p-10 md:p-12 rounded-3xl shadow-lg relative">
+      <div className="bg-white p-10 md:p-12 rounded-3xl shadow-lg relative dark:bg-[#1C1C1F]">
         <div className="absolute top-6 left-6 text-[80px] text-[#E31E24]/10 font-serif leading-none">“</div>
 
-        <p className="text-xl md:text-3xl text-gray-700 leading-relaxed mb-10 min-h-16 md:min-h-24 flex items-center justify-center">
+        <p className="text-xl md:text-3xl text-gray-700 leading-relaxed mb-10 min-h-16 md:min-h-24 flex items-center justify-center dark:text-gray-300">
           {testimonials[index]}
         </p>
 
         <div className="absolute bottom-6 right-6 text-[80px] text-[#E31E24]/10 font-serif leading-none">”</div>
 
-        <p className="font-semibold text-[#1A1A1A]">Alumni Name</p>
-        <p className="text-sm text-[#666666]">Batch</p>
+        <p className="font-semibold text-[#1A1A1A] dark:text-[#F2F2F2]">Alumni Name</p>
+        <p className="text-sm text-[#666666] dark:text-[#A1A1A6]">Batch</p>
       </div>
 
       {/* Arrows */}
       <div className="flex justify-between mt-6">
         <button
           onClick={() => setIndex((index - 1 + testimonials.length) % testimonials.length)}
-          className="bg-white px-4 py-2 rounded-full shadow hover:scale-110 hover:shadow-[#E31E24]/20 transition text-[#1A1A1A]"
+          className="bg-white px-4 py-2 rounded-full shadow hover:scale-110 hover:shadow-[#E31E24]/20 transition text-[#1A1A1A] dark:bg-[#1C1C1F] dark:text-[#F2F2F2]"
           aria-label="Previous testimonial"
         >
           ←
         </button>
         <button
           onClick={() => setIndex((index + 1) % testimonials.length)}
-          className="bg-white px-4 py-2 rounded-full shadow hover:scale-110 hover:shadow-[#E31E24]/20 transition text-[#1A1A1A]"
+          className="bg-white px-4 py-2 rounded-full shadow hover:scale-110 hover:shadow-[#E31E24]/20 transition text-[#1A1A1A] dark:bg-[#1C1C1F] dark:text-[#F2F2F2]"
           aria-label="Next testimonial"
         >
           →
@@ -163,7 +163,7 @@ function TestimonialCarousel() {
           <button
             key={i}
             onClick={() => setIndex(i)}
-            className={`h-2 w-2 rounded-full transition-colors ${i === index ? "bg-[#E31E24]" : "bg-gray-300 hover:bg-gray-400"}`}
+            className={`h-2 w-2 rounded-full transition-colors ${i === index ? "bg-[#E31E24]" : "bg-gray-300 hover:bg-gray-400 dark:bg-gray-600 dark:hover:bg-gray-500"}`}
             aria-label={`Go to testimonial ${i + 1}`}
           />
         ))}
@@ -175,7 +175,7 @@ function TestimonialCarousel() {
 // ── Page ─────────────────────────────────────────────────────────────────────
 export default function LandingPage() {
   return (
-    <div className="font-sans text-gray-800">
+    <div className="font-sans text-gray-800 dark:text-gray-200">
 
       <Navbar />
 
@@ -224,16 +224,16 @@ export default function LandingPage() {
       </section>
 
       {/* STORY */}
-      <section id="story" className="py-24 md:py-28 px-6 md:px-10 bg-white">
+      <section id="story" className="py-24 md:py-28 px-6 md:px-10 bg-white dark:bg-[#101012]">
         <div className="grid md:grid-cols-2 gap-14 md:gap-16 max-w-6xl mx-auto items-center">
           <div>
             <p className="text-[#F5A623] text-sm font-semibold mb-3 tracking-wide uppercase">Our Story</p>
-            <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-6 text-[#1A1A1A]">
+            <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-6 text-[#1A1A1A] dark:text-[#F2F2F2]">
               More Than a Place,
               <br />
               It&apos;s a Feeling.
             </h2>
-            <p className="text-[#666666] leading-relaxed">
+            <p className="text-[#666666] leading-relaxed dark:text-[#A1A1A6]">
               The Happiness Center was never just a place—it was a feeling.
               A space where we learned, laughed, and supported each other.
             </p>
@@ -257,7 +257,7 @@ export default function LandingPage() {
           {/* Decorative panel (replaces missing photo asset) */}
           <div className="relative rounded-2xl gradient-border p-10 md:p-12 shadow-lg">
             <div className="absolute -top-6 -left-2 text-[90px] text-[#E31E24]/10 font-serif leading-none select-none">“</div>
-            <p className="text-lg md:text-xl text-[#1A1A1A] leading-relaxed font-medium">
+            <p className="text-lg md:text-xl text-[#1A1A1A] leading-relaxed font-medium dark:text-[#F2F2F2]">
               We believe every goodbye on campus is really a &quot;see you later&quot;
               — this network keeps that promise alive.
             </p>
@@ -267,23 +267,23 @@ export default function LandingPage() {
       </section>
 
       {/* NETWORK */}
-      <section id="network" className="py-24 md:py-28 px-6 md:px-10 bg-[#F5F5F5] text-center">
+      <section id="network" className="py-24 md:py-28 px-6 md:px-10 bg-[#F5F5F5] text-center dark:bg-[#16161A]">
         <p className="text-[#F5A623] text-sm font-semibold mb-3 tracking-wide uppercase">Stay Connected</p>
-        <h2 className="text-4xl font-bold mb-14 md:mb-16 text-[#1A1A1A]">Your Network, Your Way</h2>
+        <h2 className="text-4xl font-bold mb-14 md:mb-16 text-[#1A1A1A] dark:text-[#F2F2F2]">Your Network, Your Way</h2>
 
         <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-10 max-w-6xl mx-auto">
           {features.map((x) => (
             <div
               key={x.t}
-              className="bg-white p-8 rounded-2xl shadow-sm border border-[#E31E24]/10 hover:shadow-xl hover:shadow-[#E31E24]/10 hover:-translate-y-3 transition duration-300"
+              className="bg-white p-8 rounded-2xl shadow-sm border border-[#E31E24]/10 hover:shadow-xl hover:shadow-[#E31E24]/10 hover:-translate-y-3 transition duration-300 dark:bg-[#1C1C1F]"
             >
               <div className={`h-14 w-14 ${x.c} rounded-full mx-auto mb-6 flex items-center justify-center`}>
                 <x.icon className="h-6 w-6" />
               </div>
 
-              <h3 className="font-semibold text-[#1A1A1A] mb-3">{x.t}</h3>
+              <h3 className="font-semibold text-[#1A1A1A] mb-3 dark:text-[#F2F2F2]">{x.t}</h3>
 
-              <p className="text-sm text-[#666666]">
+              <p className="text-sm text-[#666666] dark:text-[#A1A1A6]">
                 Build meaningful connections beyond campus.
               </p>
             </div>
@@ -292,19 +292,19 @@ export default function LandingPage() {
       </section>
 
       {/* SPOTLIGHT */}
-      <section id="spotlight" className="py-24 md:py-28 px-6 md:px-10 bg-white">
+      <section id="spotlight" className="py-24 md:py-28 px-6 md:px-10 bg-white dark:bg-[#101012]">
         <div className="grid md:grid-cols-2 gap-14 md:gap-16 max-w-6xl mx-auto items-center">
           <div className="relative">
             <div className="absolute -top-8 -left-4 text-[100px] text-[#E31E24]/10 font-serif leading-none select-none">“</div>
 
-            <p className="text-2xl md:text-3xl text-gray-700 leading-relaxed mb-6">
+            <p className="text-2xl md:text-3xl text-gray-700 leading-relaxed mb-6 dark:text-gray-300">
               Happiness Center gave me the confidence to dream bigger.
             </p>
 
             <div className="absolute -bottom-10 right-0 text-[100px] text-[#E31E24]/10 font-serif leading-none select-none">”</div>
 
-            <p className="font-semibold text-[#1A1A1A] mt-10">Muskaan Arora</p>
-            <p className="text-sm text-[#666666]">Batch of 2022</p>
+            <p className="font-semibold text-[#1A1A1A] mt-10 dark:text-[#F2F2F2]">Muskaan Arora</p>
+            <p className="text-sm text-[#666666] dark:text-[#A1A1A6]">Batch of 2022</p>
           </div>
 
           {/* Decorative profile panel (replaces missing photo asset) */}
@@ -325,9 +325,9 @@ export default function LandingPage() {
       </section>
 
       {/* TESTIMONIALS */}
-      <section id="testimonials" className="py-24 md:py-28 px-6 md:px-10 bg-[#F5F5F5] text-center">
+      <section id="testimonials" className="py-24 md:py-28 px-6 md:px-10 bg-[#F5F5F5] text-center dark:bg-[#16161A]">
         <p className="text-[#F5A623] text-sm font-semibold mb-3 tracking-wide uppercase">Voices of Happiness</p>
-        <h2 className="text-4xl font-bold mb-12 text-[#1A1A1A]">What Our Alumni Say</h2>
+        <h2 className="text-4xl font-bold mb-12 text-[#1A1A1A] dark:text-[#F2F2F2]">What Our Alumni Say</h2>
 
         <TestimonialCarousel />
       </section>
