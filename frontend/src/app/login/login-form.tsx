@@ -293,27 +293,6 @@ export default function LoginForm() {
             </Link>
           </p>
 
-          {/* Quick access */}
-          <div className="mt-8 rounded-xl border border-[#E31E24]/10 bg-white p-4 dark:bg-[#1C1C1F]">
-            <p className="text-[10px] font-semibold tracking-[0.15em] uppercase text-[#666666] mb-3 dark:text-[#A1A1A6]">Quick access credentials</p>
-            <div className="grid grid-cols-3 gap-2 text-[10px]">
-              {[
-                { role: "Admin", dot: "#E31E24", email: "admin@alumninetwork.com", pass: "Admin@123" },
-                { role: "Alumni", dot: "#1A1A1A", email: "vikram.singh@google.com", pass: "Alumni@123" },
-                { role: "Student", dot: "#666666", email: "arjun.sharma@chitkara.edu.in", pass: "Student@123" },
-              ].map((r) => (
-                <div key={r.role} className="rounded-lg border border-[#E31E24]/8 bg-white p-2 space-y-0.5 dark:bg-[#16161A]">
-                  <div className="flex items-center gap-1 mb-1">
-                    <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: r.dot }} />
-                    <span className="font-bold text-[#1A1A1A]/80 dark:text-[#F2F2F2]/80">{r.role}</span>
-                  </div>
-                  <p className="text-[#666666] truncate dark:text-[#A1A1A6]">{r.email}</p>
-                  <p className="text-[#666666] dark:text-[#A1A1A6]">{r.pass}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
           <p className="mt-6 text-center text-[10px] text-[#666666]/50 tracking-wide dark:text-[#A1A1A6]/50">
             © 2026 Alumni Network
           </p>
